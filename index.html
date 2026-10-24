@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME TAPE | The 7-Day TikTok Shop Starter by Rickey Eugene Brown</title>
+  <meta name="description" content="Hit record and start earning on TikTok Shop. 15 minutes a day on your phone. No studio, no guru talk, no fake income claims. Created by Rickey Eugene Brown.">
+
+  <!-- Google Fonts: Archivo (Flexible Weights 400-900) & Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Archivo+Black&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tape: {
+              black: '#101017',
+              dark: '#0B0B10',
+              card: '#161623',
+              cardhover: '#1D1D2E',
+              border: '#27273A',
+              borderlight: '#363650',
+              red: '#D30805',
+              redhover: '#B50604',
+              reddim: 'rgba(211, 8, 5, 0.12)',
+              muted: '#9E9EB2',
+              white: '#FFFFFF',
+              yellow: '#FFB800'
+            }
+          },
+          fontFamily: {
+            heading: ['"Archivo"', 'sans-serif'],
+            body: ['Poppins', 'sans-serif']
+          },
+          animation: {
+            'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-padding-top: 5.5rem;
+    }
+    body {
+      background-color: #101017;
+      color: #FFFFFF;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .font-heading {
+      font-family: 'Archivo', sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    /* REC Dot Pulse */
+    .rec-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #D30805;
+      border-radius: 50%;
+      animation: recPulse 1.2s infinite;
+    }
+
+    @keyframes recPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.85); }
+    }
+
+    /* Camera Viewfinder Corners */
+    .bracket-tl { border-top: 2px solid #D30805; border-left: 2px solid #D30805; }
+    .bracket-tr { border-top: 2px solid #D30805; border-right: 2px solid #D30805; }
+    .bracket-bl { border-bottom: 2px solid #D30805; border-left: 2px solid #D30805; }
+    .bracket-br { border-bottom: 2px solid #D30805; border-right: 2px solid #D30805; }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #101017;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27273A;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D30805;
+    }
+
+    /* Seamless Fade from White (Rickey Section) into Dark Cinema (VSL Section) */
+    .vsl-cinema-fade {
+      background: linear-gradient(
+        180deg,
+        #FFFFFF 0%,
+        #F6F6F9 1.5%,
+        #E6E6EE 3.5%,
+        #BDBDCF 6.5%,
+        #7D7D96 10.5%,
+        #46465B 15%,
+        #242433 20%,
+        rgba(18, 18, 26, 0.85) 26%,
+        rgba(14, 14, 21, 0.93) 33%,
+        #0B0B10 42%,
+        #0B0B10 100%
+      );
+    }
+
+    /* Seamless Fade from Dark FAQ into White Offer Ladder Section */
+    .faq-white-fade {
+      background: linear-gradient(
+        180deg,
+        #0B0B10 0%,
+        #0B0B10 58%,
+        rgba(14, 14, 21, 0.93) 67%,
+        rgba(18, 18, 26, 0.85) 74%,
+        #242433 80%,
+        #46465B 85%,
+        #7D7D96 89.5%,
+        #BDBDCF 93.5%,
+        #E6E6EE 96.5%,
+        #F6F6F9 98.5%,
+        #FFFFFF 100%
+      );
+    }
+
+    /* Hero Obsidian Cinema Background Gradient */
+    .hero-dark-gradient {
+      background: radial-gradient(ellipse 85% 75% at 50% 35%, #181828 0%, #0E0E18 65%, #08080E 100%);
+    }
+
+    /* Frosted Glass Utilities for Offer Ladder */
+    .frosted-glass-dark {
+      background: rgba(16, 16, 23, 0.82);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 2px solid rgba(211, 8, 5, 0.85);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    .frosted-glass-light {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.06), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+    }
+    .frosted-glass-inset-light {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .frosted-glass-inset-ash {
+      background: rgba(240, 242, 246, 0.68);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7), 0 4px 12px rgba(0, 0, 0, 0.02);
+    }
+    .frosted-pill-btn {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(210, 214, 222, 0.8);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+
+    /* ========================================================
+       LENIS SUPER SMOOTH SCROLLING BASE STYLES
+       ======================================================== */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-smooth iframe {
+      pointer-events: none;
+    }
+
+    /* ========================================================
+       SLOW & SMOOTH ENTRANCE SEQUENCES (HERO CHOREOGRAPHY)
+       ======================================================== */
+    @keyframes heroFadeDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-26px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heroFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(32px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes cardFanEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(42px) scale(0.96);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Timed Page-Load Hero Entrance (Slow, cinematic glide) */
+    .hero-nav-entry {
+      animation: heroFadeDown 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+    }
+    .hero-pill-entry {
+      animation: heroFadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+    }
+    .hero-title-entry {
+      animation: heroFadeUp 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+    }
+    .hero-sub-entry {
+      animation: heroFadeUp 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.68s both;
+    }
+    .hero-bubble-left-entry {
+      animation: heroFadeUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.88s both;
+    }
+    .hero-bubble-right-entry {
+      animation: heroFadeUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.02s both;
+    }
+    .hero-cards-entry {
+      animation: cardFanEntrance 1.45s cubic-bezier(0.16, 1, 0.3, 1) 0.82s both;
+    }
+    .hero-actions-entry {
+      animation: heroFadeUp 1.25s cubic-bezier(0.16, 1, 0.3, 1) 1.2s both;
+    }
+
+    /* ========================================================
+       SCROLL-TRIGGERED FADE-IN (SLOW, SMOOTH, DOMINO STAGGER)
+       ======================================================== */
+    .fade-in-scroll {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 1.15s cubic-bezier(0.16, 1, 0.3, 1), transform 1.15s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .fade-in-scroll.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger Delays for Grid Elements */
+    .stagger-delay-1 { transition-delay: 0.1s; }
+    .stagger-delay-2 { transition-delay: 0.24s; }
+    .stagger-delay-3 { transition-delay: 0.38s; }
+    .stagger-delay-4 { transition-delay: 0.52s; }
+    .stagger-delay-5 { transition-delay: 0.66s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-nav-entry,
+      .hero-pill-entry,
+      .hero-title-entry,
+      .hero-sub-entry,
+      .hero-bubble-left-entry,
+      .hero-bubble-right-entry,
+      .hero-cards-entry,
+      .hero-actions-entry,
+      .fade-in-scroll {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-tape-black text-white antialiased selection:bg-tape-red selection:text-white">
+
+  <!-- Floating Pill Navigation (Fixed across entire page scroll) -->
+  <header class="fixed top-4 left-0 right-0 z-50 pointer-events-none hero-nav-entry">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="bg-white/95 backdrop-blur-md border border-gray-200/90 shadow-xl shadow-black/10 rounded-full px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between pointer-events-auto transition-all duration-300">
+        
+        <!-- Real Logo from Assets (Dark text for white nav) -->
+        <a href="#hero" class="flex items-center group">
+          <img src="Assets/logo-dark.png" alt="GAME TAPE" class="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.03]">
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex items-center space-x-6 lg:space-x-8 text-sm font-medium text-gray-700">
+          <a href="#the-freeze" class="hover:text-black transition">How It Works</a>
+          <a href="#vsl" class="hover:text-black transition">Watch Breakdown</a>
+          <a href="#offer-ladder" class="hover:text-black transition">The 7 Days</a>
+          <a href="#faq" class="hover:text-black transition">FAQ</a>
+        </nav>
+
+        <!-- CTA in Header (High contrast dark pill button) -->
+        <div class="flex items-center space-x-3">
+          <button onclick="openCheckoutModal()" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-tape-black hover:bg-black rounded-full transition-all shadow-md">
+            <span>Start today</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       HERO & NAVIGATION SECTION (OBSIDIAN TAPE ROOM)
+       ======================================================== -->
+  <section id="hero" class="relative bg-[#0E0E18] text-white pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 overflow-hidden">
+
+    <!-- Obsidian Cinema Background Layer -->
+    <div class="absolute inset-0 pointer-events-none select-none z-0">
+      <!-- Deep Obsidian Dark Cinema Gradient -->
+      <div class="absolute inset-0 hero-dark-gradient"></div>
+      
+      <!-- Pulsing Ambient Red Aura behind Center Card -->
+      <div class="absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[360px] bg-tape-red/20 rounded-full blur-[120px]"></div>
+
+      <!-- Viewfinder Corner Brackets In Dark Canvas -->
+      <div class="absolute top-28 left-6 sm:left-10 w-6 h-6 border-t-2 border-l-2 border-white/20"></div>
+      <div class="absolute top-28 right-6 sm:right-10 w-6 h-6 border-t-2 border-r-2 border-white/20"></div>
+      <div class="hidden sm:block absolute bottom-16 left-6 sm:left-10 w-6 h-6 border-b-2 border-l-2 border-white/20"></div>
+      <div class="hidden sm:block absolute bottom-16 right-6 sm:right-10 w-6 h-6 border-b-2 border-r-2 border-white/20"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 pt-2 sm:pt-4">
+
+      <!-- Main Headline (Centered, sentence-case, Archivo) -->
+      <div class="max-w-5xl mx-auto text-center mb-8 sm:mb-12">
+        
+        <!-- Subtle [REC] Logo Eyebrow Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-sm text-xs font-medium text-white mb-5 sm:mb-6 transition hover:border-white/30 hero-pill-entry">
+          <img src="Assets/REC(white&Red).png" alt="REC" class="h-3.5 sm:h-4 w-auto object-contain">
+          <span class="text-[#E2E2EC] text-xs font-medium">The 7-Day TikTok Shop Starter</span>
+        </div>
+
+        <h1 class="font-heading font-bold text-2xl sm:text-4xl md:text-[2.65rem] lg:text-[3.25rem] tracking-tight text-white leading-[1.3] mb-4 sm:mb-6 hero-title-entry">
+          <span class="sm:whitespace-nowrap block mb-1.5 sm:mb-3">Unlock effortless TikTok Shop growth</span>
+          <span class="block">with a world-class creator in your corner.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-[#C5C5D6] font-normal max-w-2xl mx-auto mt-3.5 leading-relaxed hero-sub-entry">
+          Where emerging creators learn the game to sell on TikTok Shop. Discover step-by-step strategies to transform your everyday content into a thriving storefront.
+        </p>
+      </div>
+
+      <!-- Fanned Cards Stage with Floating Speech Bubbles -->
+      <div class="relative max-w-5xl mx-auto mb-10 pt-4 hero-cards-entry">
+
+        <!-- Speech Bubble Left: @rickeyeugenebrown -->
+        <div class="absolute -top-3 left-4 sm:left-12 md:left-24 z-30 transform -rotate-3 hidden sm:block hero-bubble-left-entry">
+          <div class="bg-blue-600 text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-2xl rounded-bl-none shadow-md flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+            <span>@rickeyeugenebrown</span>
+          </div>
+        </div>
+
+        <!-- Speech Bubble Right: Creator Sprint -->
+        <div class="absolute -top-3 right-4 sm:right-12 md:right-24 z-30 transform rotate-3 hidden sm:block hero-bubble-right-entry">
+          <div class="bg-emerald-600 text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-2xl rounded-br-none shadow-md flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+            <span>Creator Sprint – Day 6</span>
+          </div>
+        </div>
+
+        <!-- Fanned Cards Row (Smooth arc, overlapping negative spacing, hover pop) -->
+        <div class="flex items-center justify-center -space-x-3 sm:-space-x-5 md:-space-x-6 px-4 overflow-hidden sm:overflow-visible py-8">
+          
+          <!-- Card 1: Day 1 -->
+          <div onclick="scrollToSection('the-freeze')" 
+               onmouseenter="handleCardMouseEnter('card-video-1')" 
+               onmouseleave="handleCardMouseLeave('card-video-1')"
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-zinc-700/80 shadow-lg transform -rotate-6 sm:-rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-zinc-900">
+            
+            <!-- Video Layer (Hosted Cloudinary) -->
+            <video id="card-video-1" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                   loop muted playsinline preload="auto">
+              <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744659/Download.mp4" type="video/mp4">
+              <source src="Assets/videos/day01.mp4" type="video/mp4">
+            </video>
+
+            <!-- Gradient Readability Tint (Clear middle so video is unobstructed) -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+
+            <!-- Content -->
+            <div class="relative z-20 h-full flex flex-col justify-between">
+              <div class="flex items-center justify-start">
+                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Start</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Day 2 -->
+          <div onclick="scrollToSection('the-freeze')" 
+               onmouseenter="handleCardMouseEnter('card-video-2')" 
+               onmouseleave="handleCardMouseLeave('card-video-2')"
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-blue-800/40 shadow-lg transform -rotate-2 sm:-rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-slate-900">
+            
+            <!-- Video Layer (Hosted Cloudinary) -->
+            <video id="card-video-2" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                   loop muted playsinline preload="auto">
+              <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744663/Download_4.mp4" type="video/mp4">
+              <source src="Assets/videos/day02.mp4" type="video/mp4">
+            </video>
+
+            <!-- Gradient Readability Tint -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+
+            <!-- Content -->
+            <div class="relative z-20 h-full flex flex-col justify-between">
+              <div class="flex items-center justify-start">
+                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Practice</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 (CENTER / FEATURED HERO CARD: GAME TAPE SIGNATURE) -->
+          <div onclick="openCheckoutModal()" 
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-40 h-52 sm:w-48 sm:h-60 md:w-52 md:h-72 rounded-2xl p-4 sm:p-5 text-white border-2 border-tape-red shadow-2xl transform rotate-0 -translate-y-4 sm:-translate-y-5 scale-105 z-20 hover:scale-115 hover:-translate-y-7 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-zinc-950">
+            
+            <!-- Video Layer (Hosted Cloudinary - Continuous Spotlight Loop) -->
+            <video id="center-video" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                   autoplay loop muted playsinline preload="auto">
+              <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744653/Download_3.mp4" type="video/mp4">
+              <source src="Assets/videos/center.mp4" type="video/mp4">
+            </video>
+
+            <!-- Spotlight Ring (Active Aura) -->
+            <div class="spotlight-ring absolute inset-0 border-2 border-tape-red rounded-2xl animate-pulse pointer-events-none z-15 shadow-[0_0_25px_rgba(211,8,5,0.6)]"></div>
+
+            <!-- Gradient Readability Tint -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-transparent to-black/85 z-10 pointer-events-none transition-all duration-300"></div>
+
+            <!-- Content -->
+            <div class="relative z-20 h-full flex flex-col justify-between">
+              <div class="flex items-center justify-start">
+                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Game Tape</span>
+              </div>
+
+              <!-- Bottom CTA Button (Cleanly anchored at bottom, sentence case, no arrow, no price) -->
+              <div class="text-xs sm:text-sm font-heading font-medium text-center bg-tape-red hover:bg-tape-redhover text-white py-2 px-4 rounded-xl shadow-lg transition flex items-center justify-center">
+                <span>Start today</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Day 6 -->
+          <div onclick="scrollToSection('the-freeze')" 
+               onmouseenter="handleCardMouseEnter('card-video-4')" 
+               onmouseleave="handleCardMouseLeave('card-video-4')"
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-emerald-800/40 shadow-lg transform rotate-2 sm:rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-slate-900">
+            
+            <!-- Video Layer (Hosted Cloudinary) -->
+            <video id="card-video-4" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                   loop muted playsinline preload="auto">
+              <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744681/Download_6.mp4" type="video/mp4">
+              <source src="Assets/videos/day06.mp4" type="video/mp4">
+            </video>
+
+            <!-- Gradient Readability Tint -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+
+            <!-- Content -->
+            <div class="relative z-20 h-full flex flex-col justify-between">
+              <div class="flex items-center justify-start">
+                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Publish</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Day 7 -->
+          <div onclick="scrollToSection('the-freeze')" 
+               onmouseenter="handleCardMouseEnter('card-video-5')" 
+               onmouseleave="handleCardMouseLeave('card-video-5')"
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-purple-800/40 shadow-lg transform rotate-6 sm:rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-slate-900">
+            
+            <!-- Video Layer (Hosted Cloudinary) -->
+            <video id="card-video-5" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+                   loop muted playsinline preload="auto">
+              <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744654/Download_5.mp4" type="video/mp4">
+              <source src="Assets/videos/day07.mp4" type="video/mp4">
+            </video>
+
+            <!-- Gradient Readability Tint -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+
+            <!-- Content -->
+            <div class="relative z-20 h-full flex flex-col justify-between">
+              <div class="flex items-center justify-start">
+                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Scale</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Action Buttons Below Cards (Inspo Pill Buttons) -->
+      <div class="flex flex-wrap items-center justify-center gap-3 relative z-20 hero-actions-entry">
+        <button onclick="scrollToSection('offer-ladder')" class="px-8 py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-xs sm:text-sm font-semibold transition transform hover:-translate-y-0.5 shadow-md shadow-red-900/30">
+          View Courses
+        </button>
+        <button onclick="scrollToSection('the-freeze')" class="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs sm:text-sm font-medium transition">
+          See how it works
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 2: THE ECOSYSTEM PREVIEW (HOW GAME TAPE WORKS)
+       ======================================================== -->
+  <section id="the-freeze" class="pt-28 sm:pt-36 pb-20 sm:pb-28 bg-white text-tape-black relative overflow-hidden transition-colors duration-500">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <!-- Section Heading Block -->
+      <div class="max-w-4xl mx-auto text-center mb-12 sm:mb-16 fade-in-scroll">
+        <h2 class="font-heading text-3xl sm:text-5xl tracking-tight text-gray-950 mb-4 sm:mb-5">
+          You don't need more information to start your TikTok Shop journey.
+        </h2>
+        <p class="text-base sm:text-lg text-gray-600 font-normal max-w-2xl mx-auto leading-relaxed">
+          You need a daily routine, real accountability, and someone reviewing your tape. <span class="text-gray-950 font-semibold">Game Tape was built to provide all three.</span>
+        </p>
+      </div>
+
+      <!-- 3 Core Pillar Cards (Image Background with Text Overlay) -->
+      <div class="grid md:grid-cols-3 gap-6 sm:gap-7 max-w-6xl mx-auto">
+
+        <!-- Card 1: The Classroom -->
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group min-h-[380px] sm:min-h-[420px] flex flex-col justify-between p-6 sm:p-7 bg-slate-900 fade-in-scroll stagger-delay-1">
+          
+          <!-- Background Image Layer -->
+          <img src="Assets/classroom.png" 
+               alt="The Classroom - Filming Drills" 
+               class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out z-0">
+          
+          <!-- Gradient Readability Tint Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30 z-10 pointer-events-none group-hover:from-black/90 transition-colors duration-300"></div>
+
+          <!-- Top Meta Bar -->
+          <div class="relative z-20 flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-base shadow-sm">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-sm group-hover:bg-white group-hover:text-black transition-all duration-300">
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"></path></svg>
+            </div>
+          </div>
+
+          <!-- Bottom Text Overlay -->
+          <div class="relative z-20 mt-auto pt-6">
+            <h3 class="font-heading text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">The Classroom</h3>
+            <p class="text-xs sm:text-sm text-gray-200 leading-relaxed font-normal">
+              Daily structured drills designed to get you started on camera in 7 days flat.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2: Daily Pods -->
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group min-h-[380px] sm:min-h-[420px] flex flex-col justify-between p-6 sm:p-7 bg-slate-900 fade-in-scroll stagger-delay-2">
+          
+          <!-- Background Image Layer -->
+          <img src="Assets/Cozy Connected Chat Lounge.png" 
+               alt="Daily Pods - Creator Crew" 
+               class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out z-0">
+          
+          <!-- Gradient Readability Tint Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30 z-10 pointer-events-none group-hover:from-black/90 transition-colors duration-300"></div>
+
+          <!-- Top Meta Bar -->
+          <div class="relative z-20 flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-base shadow-sm">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-sm group-hover:bg-white group-hover:text-black transition-all duration-300">
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"></path></svg>
+            </div>
+          </div>
+
+          <!-- Bottom Text Overlay -->
+          <div class="relative z-20 mt-auto pt-6">
+            <h3 class="font-heading text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">Daily Pods</h3>
+            <p class="text-xs sm:text-sm text-gray-200 leading-relaxed font-normal">
+              Your personal creator crew keeping you motivated when the algorithm tests your patience.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 3: Live Reviews with Rickey -->
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-gray-200/80 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 group min-h-[380px] sm:min-h-[420px] flex flex-col justify-between p-6 sm:p-7 bg-slate-900 fade-in-scroll stagger-delay-3">
+          
+          <!-- Background Image Layer -->
+          <img src="Assets/Project Review Video Meeting Interface.png" 
+               alt="Live Reviews with Rickey - Video Breakdowns" 
+               class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out z-0">
+          
+          <!-- Gradient Readability Tint Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30 z-10 pointer-events-none group-hover:from-black/90 transition-colors duration-300"></div>
+
+          <!-- Top Meta Bar -->
+          <div class="relative z-20 flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-xl bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white text-base shadow-sm">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-sm group-hover:bg-white group-hover:text-black transition-all duration-300">
+              <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17"></path></svg>
+            </div>
+          </div>
+
+          <!-- Bottom Text Overlay -->
+          <div class="relative z-20 mt-auto pt-6">
+            <h3 class="font-heading text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">Live Reviews with Rickey</h3>
+            <p class="text-xs sm:text-sm text-gray-200 leading-relaxed font-normal">
+              Real-time tape breakdowns showing you what hooks viewers and what makes them swipe away.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       ABOUT RICKEY EUGENE BROWN
+       ======================================================== -->
+  <section id="rickey" class="py-20 sm:py-28 bg-white text-tape-black border-t border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Heading Block -->
+      <div class="max-w-4xl mx-auto text-center mb-12 sm:mb-16 fade-in-scroll">
+        <h2 class="font-heading text-3xl sm:text-5xl tracking-tight text-gray-950 mb-4 sm:mb-5">
+          In Your Corner
+        </h2>
+        <p class="text-base sm:text-lg text-gray-600 font-normal max-w-2xl mx-auto leading-relaxed">
+          From Hollywood sets to over 1 billion views.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center max-w-6xl mx-auto">
+        
+        <!-- Rickey's Visual Anchor Frame -->
+        <div class="lg:col-span-5 relative fade-in-scroll stagger-delay-1">
+          <div class="aspect-[4/5] rounded-2xl sm:rounded-3xl border border-gray-200/90 shadow-xl relative overflow-hidden group">
+            <!-- Rickey Photograph -->
+            <img src="Assets/rickey-02-04.jpg" 
+                 alt="Rickey Eugene Brown" 
+                 class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out">
+          </div>
+        </div>
+
+        <!-- Bio & Voice -->
+        <div class="lg:col-span-7 fade-in-scroll stagger-delay-2">
+          <div class="space-y-4 text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
+            <p>
+              <strong class="text-gray-950 font-semibold">Rickey Eugene Brown</strong> is a Los Angeles-born actor, filmmaker, and content creator known for his dynamic on-screen presence, comedic storytelling, and ability to connect with audiences across entertainment and digital media. His acting credits include the blockbuster hit Central Intelligence, starring Kevin Hart and Dwayne “The Rock” Johnson, HBO’s Winning Time: The Rise of the Lakers Dynasty, Your Honor, and work on the NFL Madden video game franchise.
+            </p>
+            <p>
+              Rickey’s comedy skits have gone viral numerous times across social media platforms, amassing <strong class="text-gray-950 font-semibold">over 1 billion views</strong> across platforms. His unique blend of humor, relatable characters, and creative storytelling has helped him build a massive digital audience and establish himself as a versatile entertainer and sought-after content creator. His commercial acting work includes campaigns for <span class="text-gray-900 font-medium">McDonald’s, Subway, and Best Buy</span>, while his social media brand collaborations include <span class="text-gray-900 font-medium">Meta, Puma, Gap, Von Dutch, Casio, DJI, Hover</span>, and many more.
+            </p>
+            <p>
+              Whether he’s bringing characters to life on screen, creating viral comedy, collaborating with major brands, or developing original film projects, Rickey brings a distinct creative perspective and a passion for entertaining audiences.
+            </p>
+          </div>
+
+          <!-- Credibility Numbers Grid -->
+          <div class="grid grid-cols-2 gap-8 border-t border-gray-200 pt-6 text-center sm:text-left max-w-md">
+            <div>
+              <span class="font-heading text-2xl sm:text-3xl text-gray-950 font-bold block">1B+</span>
+              <span class="text-xs text-gray-500 font-medium">Views Across Platforms</span>
+            </div>
+            <div>
+              <span class="font-heading text-2xl sm:text-3xl text-gray-950 font-bold block">$4M+</span>
+              <span class="text-xs text-gray-500 font-medium">TikTok Sales Driven</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Featured Brand Collaborations Showcase (Full Color, Clean Lineup) -->
+      <div class="mt-12 sm:mt-16 max-w-5xl mx-auto fade-in-scroll">
+        <div class="grid grid-cols-3 sm:grid-cols-6 gap-x-4 gap-y-6 sm:gap-8 lg:gap-10 items-center justify-items-center">
+          <!-- McDonald's -->
+          <div class="w-full flex items-center justify-center p-2 transition-all duration-300">
+            <img src="Assets/brand-mcdonalds.png" alt="McDonald's" class="h-9 sm:h-10 max-w-full sm:max-w-[110px] w-auto object-contain transition-transform duration-300 transform hover:scale-105">
+          </div>
+          
+          <!-- Subway -->
+          <div class="w-full flex items-center justify-center p-2 transition-all duration-300">
+            <img src="Assets/brand-subway.png" alt="Subway" class="h-6 sm:h-7 max-w-full sm:max-w-[125px] w-auto object-contain transition-transform duration-300 transform hover:scale-105">
+          </div>
+
+          <!-- Puma -->
+          <div class="w-full flex items-center justify-center p-2 transition-all duration-300">
+            <img src="Assets/brand-puma.png" alt="Puma" class="h-8 sm:h-9 max-w-full sm:max-w-[110px] w-auto object-contain transition-transform duration-300 transform hover:scale-105">
+          </div>
+
+          <!-- Meta -->
+          <div class="w-full flex items-center justify-center p-2 transition-all duration-300">
+            <img src="Assets/brand-meta.png" alt="Meta" class="h-6 sm:h-7 max-w-full sm:max-w-[120px] w-auto object-contain transition-transform duration-300 transform hover:scale-105">
+          </div>
+
+          <!-- Casio -->
+          <div class="w-full flex items-center justify-center p-2 transition-all duration-300">
+            <img src="Assets/brand-casio.png" alt="Casio" class="h-5 sm:h-6 max-w-full sm:max-w-[125px] w-auto object-contain transition-transform duration-300 transform hover:scale-105">
+          </div>
+
+          <!-- DJI -->
+          <div class="w-full flex items-center justify-center p-2 transition-all duration-300">
+            <img src="Assets/brand-dji.png" alt="DJI" class="h-8 sm:h-9 max-w-full sm:max-w-[100px] w-auto object-contain transition-transform duration-300 transform hover:scale-105">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       VSL (VIDEO SALES LETTER) SECTION
+       ======================================================== -->
+  <section id="vsl" class="pt-20 sm:pt-28 pb-24 sm:pb-32 vsl-cinema-fade text-white relative overflow-hidden -mt-px">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <!-- Section Heading Block (Follows identical centered format) -->
+      <div class="max-w-4xl mx-auto text-center mb-10 sm:mb-14 fade-in-scroll">
+        <h2 class="font-heading text-3xl sm:text-5xl tracking-tight text-white mb-4 sm:mb-5">
+          Ready to get the game? Watch this!
+        </h2>
+        <p class="text-base sm:text-lg text-gray-400 font-normal max-w-2xl mx-auto leading-relaxed">
+          A 3-minute breakdown from Rickey on how 15 minutes a day gets you past camera fear and ready to earn on TikTok Shop.
+        </p>
+      </div>
+
+      <!-- 16:9 Cinema Video Player Stage -->
+      <div class="max-w-4xl mx-auto fade-in-scroll stagger-delay-1">
+        <div class="relative rounded-2xl sm:rounded-3xl p-1 sm:p-1.5 bg-gradient-to-b from-white/20 via-white/5 to-white/0 shadow-2xl">
+          
+          <div id="vsl-player-container" class="relative aspect-video w-full rounded-xl sm:rounded-2xl overflow-hidden bg-black border border-white/10 group cursor-pointer" onclick="handleVslPlay()">
+            
+            <!-- Rickey Camera Thumbnail / Poster -->
+            <img id="vsl-poster" 
+                 src="Assets/rickey-02-04.jpg" 
+                 alt="Watch Game Tape VSL with Rickey" 
+                 class="w-full h-full object-cover object-top filter brightness-75 group-hover:brightness-90 group-hover:scale-105 transition-all duration-700 ease-out z-0">
+
+            <!-- Readability & Vignette Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-black/50 z-10 pointer-events-none"></div>
+
+            <!-- Viewfinder Markings -->
+            <div class="absolute top-4 left-4 w-4 h-4 bracket-tl z-20 pointer-events-none opacity-80"></div>
+            <div class="absolute top-4 right-4 w-4 h-4 bracket-tr z-20 pointer-events-none opacity-80"></div>
+            <div class="absolute bottom-14 sm:bottom-16 left-4 w-4 h-4 bracket-bl z-20 pointer-events-none opacity-80"></div>
+            <div class="absolute bottom-14 sm:bottom-16 right-4 w-4 h-4 bracket-br z-20 pointer-events-none opacity-80"></div>
+
+            <!-- Top Left [REC] Logo Badge -->
+            <div class="absolute top-4 sm:top-6 left-4 sm:left-6 z-20 pointer-events-none flex items-center">
+              <img src="Assets/REC(white&Red).png" 
+                   alt="REC" 
+                   class="h-7 sm:h-8 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] transition-transform duration-300 group-hover:scale-105">
+            </div>
+
+            <!-- Top Right Quality Badge -->
+            <div class="absolute top-4 sm:top-6 right-4 sm:right-6 z-20 hidden sm:flex items-center gap-2 bg-black/75 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/15 text-[11px] font-mono text-gray-300 shadow-lg pointer-events-none">
+              <span>4K 60FPS</span>
+            </div>
+
+            <!-- Center Animated Play Button -->
+            <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+              <div class="relative flex items-center justify-center">
+                <div class="absolute -inset-3 rounded-full bg-tape-red/40 animate-ping opacity-60"></div>
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-tape-red text-white flex items-center justify-center shadow-2xl group-hover:scale-110 group-hover:bg-tape-redhover transition-all duration-300 border-2 border-white/30">
+                  <svg class="w-7 h-7 sm:w-9 sm:h-9 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Video Player Timeline & Chrome Bar -->
+            <div class="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-20 bg-gradient-to-t from-black via-black/85 to-transparent flex flex-col justify-end pointer-events-none">
+              <div class="w-full bg-white/20 h-1 sm:h-1.5 rounded-full overflow-hidden mb-2.5">
+                <div class="bg-tape-red h-full w-[35%] rounded-full"></div>
+              </div>
+              <div class="flex items-center justify-between text-xs font-mono text-gray-300">
+                <div class="flex items-center gap-2.5">
+                  <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  <span>01:12 / 03:24</span>
+                </div>
+                <div class="flex items-center gap-2 sm:gap-3 text-gray-400">
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Native / Hosted Video Element (Revealed upon play) -->
+            <!-- NOTE FOR PRODUCTION: Replace this video or swap for an iframe embed (YouTube/Vimeo/Loom) when your final VSL is ready -->
+            <video id="vsl-video" class="hidden absolute inset-0 w-full h-full object-cover z-30" controls playsinline preload="auto">
+              <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744663/Download_4.mp4" type="video/mp4">
+            </video>
+
+          </div>
+
+        </div>
+
+        <!-- Direct CTA Under VSL -->
+        <div class="mt-8 sm:mt-10 text-center fade-in-scroll stagger-delay-2">
+          <button onclick="openCheckoutModal()" class="px-8 sm:px-10 py-4 rounded-full bg-white hover:bg-gray-100 text-tape-black hover:text-black font-heading font-bold text-sm sm:text-base tracking-wide transition shadow-2xl hover:shadow-white/20 hover:-translate-y-0.5 transform">
+            <span>Start The First Seven Today</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FAQ ACCORDIONS (INSPO TWO-COLUMN STRUCTURE)
+       ======================================================== -->
+  <section id="faq" class="pt-20 sm:pt-28 pb-28 sm:pb-36 faq-white-fade text-white relative -mt-px">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+        
+        <!-- Left Column: Title, Eyebrow & "Still Have Questions?" Card -->
+        <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-6 sm:space-y-8 fade-in-scroll">
+          
+          <div>
+            <!-- Headline (Left-aligned, prominent) -->
+            <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-[1.15] mb-3">
+              Frequently asked<br class="hidden sm:inline"> questions
+            </h2>
+            <p class="text-sm sm:text-base text-gray-400 leading-relaxed max-w-sm">
+              Everything you need to know about the First Seven sprint and starting your TikTok Shop journey.
+            </p>
+          </div>
+
+          <!-- "Still have questions?" Card (Ashlike Card) -->
+          <div class="relative overflow-hidden rounded-2xl bg-[#E1E2E4] border border-[#D2D4D9] p-6 sm:p-7 shadow-xl shadow-black/20">
+            <h3 class="font-heading text-lg sm:text-xl font-bold text-gray-950 mb-2">
+              Still have a questions?
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-6">
+              Can't find the answer to your question? Send us an email and we'll get back to you as soon as possible!
+            </p>
+            <a href="mailto:support@gametape.com" class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-tape-red hover:bg-tape-redhover text-white text-xs sm:text-sm font-semibold transition shadow-md shadow-red-900/30 cursor-pointer">
+              <span>Send email</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Accordion Stack -->
+        <div class="lg:col-span-7 space-y-3.5 sm:space-y-4" id="faq-container">
+          
+          <!-- FAQ 1 (Open by default, matching inspo) -->
+          <div class="group bg-[#E1E2E4] hover:bg-[#EAEBED] border border-[#D2D4D9] rounded-2xl transition-all duration-300 shadow-xl shadow-black/15 overflow-hidden fade-in-scroll stagger-delay-1">
+            <button onclick="toggleFaq(1)" class="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 transition cursor-pointer">
+              <span class="font-heading font-semibold text-sm sm:text-base text-gray-950 group-hover:text-tape-red transition-colors pt-0.5 leading-snug">
+                What if I have 0 followers on TikTok right now?
+              </span>
+              <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/60 border border-black/5 flex items-center justify-center text-gray-700 group-hover:text-gray-950 group-hover:bg-white transition-all">
+                <svg id="faq-icon-1" class="w-4 h-4 transform rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </span>
+            </button>
+            <div id="faq-content-1" class="px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-gray-700 leading-relaxed border-t border-black/10 pt-3.5">
+              That is exactly who this is built for. You do not need an existing audience. In fact, starting fresh allows you to build your profile correctly without awkward old content. The sprint is designed as your roadmap to reach your first 1,000 followers and unlock affiliate commissions.
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="group bg-[#E1E2E4] hover:bg-[#EAEBED] border border-[#D2D4D9] rounded-2xl transition-all duration-300 shadow-xl shadow-black/15 overflow-hidden fade-in-scroll stagger-delay-2">
+            <button onclick="toggleFaq(2)" class="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 transition cursor-pointer">
+              <span class="font-heading font-semibold text-sm sm:text-base text-gray-950 group-hover:text-tape-red transition-colors pt-0.5 leading-snug">
+                Do I need to buy expensive cameras, lighting, or microphones?
+              </span>
+              <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/60 border border-black/5 flex items-center justify-center text-gray-700 group-hover:text-gray-950 group-hover:bg-white transition-all">
+                <svg id="faq-icon-2" class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </span>
+            </button>
+            <div id="faq-content-2" class="hidden px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-gray-700 leading-relaxed border-t border-black/10 pt-3.5">
+              Zero dollars on gear. Rickey explicitly teaches you how to position your phone on a stack of books, face a natural window, and talk directly into your phone’s built-in microphone in a quiet room. Over-produced videos actually convert worse on TikTok Shop than raw, authentic ones.
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="group bg-[#E1E2E4] hover:bg-[#EAEBED] border border-[#D2D4D9] rounded-2xl transition-all duration-300 shadow-xl shadow-black/15 overflow-hidden fade-in-scroll stagger-delay-3">
+            <button onclick="toggleFaq(3)" class="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 transition cursor-pointer">
+              <span class="font-heading font-semibold text-sm sm:text-base text-gray-950 group-hover:text-tape-red transition-colors pt-0.5 leading-snug">
+                Is this course only for people in the United States?
+              </span>
+              <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/60 border border-black/5 flex items-center justify-center text-gray-700 group-hover:text-gray-950 group-hover:bg-white transition-all">
+                <svg id="faq-icon-3" class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </span>
+            </button>
+            <div id="faq-content-3" class="hidden px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-gray-700 leading-relaxed border-t border-black/10 pt-3.5">
+              Yes. The First Seven and Shop Ready are explicitly built around the rules, payout systems, and creator policies of the US TikTok Shop. Participants must be 18 or older with access to the US TikTok platform.
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="group bg-[#E1E2E4] hover:bg-[#EAEBED] border border-[#D2D4D9] rounded-2xl transition-all duration-300 shadow-xl shadow-black/15 overflow-hidden fade-in-scroll stagger-delay-4">
+            <button onclick="toggleFaq(4)" class="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 transition cursor-pointer">
+              <span class="font-heading font-semibold text-sm sm:text-base text-gray-950 group-hover:text-tape-red transition-colors pt-0.5 leading-snug">
+                How much time does each day take?
+              </span>
+              <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/60 border border-black/5 flex items-center justify-center text-gray-700 group-hover:text-gray-950 group-hover:bg-white transition-all">
+                <svg id="faq-icon-4" class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </span>
+            </button>
+            <div id="faq-content-4" class="hidden px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-gray-700 leading-relaxed border-t border-black/10 pt-3.5">
+              15 minutes total. Each lesson is about 4 minutes of video from Rickey, followed by an 11-minute timer task. It’s sized so you can complete it before work or during your lunch break without disrupting your daily life.
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="group bg-[#E1E2E4] hover:bg-[#EAEBED] border border-[#D2D4D9] rounded-2xl transition-all duration-300 shadow-xl shadow-black/15 overflow-hidden fade-in-scroll stagger-delay-5">
+            <button onclick="toggleFaq(5)" class="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 transition cursor-pointer">
+              <span class="font-heading font-semibold text-sm sm:text-base text-gray-950 group-hover:text-tape-red transition-colors pt-0.5 leading-snug">
+                What is the 100% Doable Guarantee?
+              </span>
+              <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/60 border border-black/5 flex items-center justify-center text-gray-700 group-hover:text-gray-950 group-hover:bg-white transition-all">
+                <svg id="faq-icon-5" class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </span>
+            </button>
+            <div id="faq-content-5" class="hidden px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-gray-700 leading-relaxed border-t border-black/10 pt-3.5">
+              If you go through the 7 days, follow the 15-minute tasks on your phone, and don’t feel significantly more confident on camera with your first product videos filmed, let us know within 14 days and we will refund every penny of your $17. No questions asked.
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       THE FULL ECOSYSTEM / OFFER LADDER SECTION
+       ======================================================== -->
+  <section id="offer-ladder" class="py-20 sm:py-28 relative bg-[#F7F8FA] text-tape-black -mt-px overflow-hidden">
+    <!-- Ambient Frosted Glass Backdrops & Optical Dot Matrix -->
+    <div class="absolute inset-0 bg-[radial-gradient(#CBD5E1_1.2px,transparent_1.2px)] [background-size:28px_28px] opacity-45 pointer-events-none"></div>
+    <!-- Soft luminous glow spheres behind the cards for visible refraction -->
+    <div class="absolute top-1/3 left-1/12 w-[28rem] h-[28rem] bg-slate-300/35 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-1/4 right-1/12 w-[32rem] h-[32rem] bg-slate-300/40 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <div class="max-w-3xl mx-auto text-center mb-16 fade-in-scroll">
+        <h2 class="font-heading text-3xl sm:text-5xl tracking-tight text-gray-950 mb-4">
+          Everything you need to start.
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          One price, seven days, and a plan for your first 1,000 followers.
+        </p>
+      </div>
+
+      <!-- Ladder Cards (Inspo 2 Split-Card Architecture - Frosted Glass Edition) -->
+      <div class="max-w-md mx-auto">
+        
+        <!-- Offer 1: Starter (CURRENT FOCUS - Featured Frosted Obsidian Split Card) -->
+        <div class="relative frosted-glass-dark rounded-3xl p-2 sm:p-2.5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 fade-in-scroll stagger-delay-1">
+          <!-- Top Tag / Badge -->
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-tape-red text-white text-[10px] font-heading font-bold uppercase px-4 py-1 rounded-full tracking-wider shadow-sm z-20">
+            START HERE TODAY
+          </div>
+
+          <!-- Top Half: Title, Subtitle, Price & Primary Button -->
+          <div class="p-5 sm:p-6 pb-6 sm:pb-7">
+            <h3 class="font-heading text-xl sm:text-2xl font-bold text-white mb-1.5">
+              The First Seven
+            </h3>
+            <p class="text-xs text-gray-400 font-medium mb-6 leading-relaxed min-h-[36px]">
+              The 7-Day TikTok Shop Starter.
+            </p>
+
+            <!-- Big Price Display -->
+            <div class="flex items-baseline gap-1.5 mb-6">
+              <span class="font-heading text-4xl sm:text-5xl font-bold text-white tracking-tight">$17</span>
+              <span class="text-xs text-gray-400 font-medium">/ one-time starter</span>
+            </div>
+
+            <!-- CTA Button (Positioned directly under price, matching inspo) -->
+            <button onclick="openCheckoutModal()" class="w-full py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-xs sm:text-sm font-heading font-bold tracking-wide transition shadow-sm hover:shadow-md transform hover:scale-[1.02] cursor-pointer">
+              Get The First Seven
+            </button>
+          </div>
+
+          <!-- Bottom Inset Container: Feature Checklist (Frosted Light Inset) -->
+          <div class="frosted-glass-inset-light rounded-2xl p-5 sm:p-6 flex-1 flex flex-col justify-between">
+            <ul class="space-y-3.5 text-xs sm:text-sm text-gray-800 font-medium">
+              <li class="flex items-start gap-2.5">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
+                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span>7 short daily video lessons from Rickey</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
+                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span>7 actionable 11-minute tasks</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
+                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span>3 private draft videos + 4 public posts</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
+                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span>3 fill-in-the-blank video scripts</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
+                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span>The Roadmap to your first 1,000 followers</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FOOTER (FULL-BLEED BACKGROUND WITH GIANT WATERMARK)
+       ======================================================== -->
+  <footer class="pt-20 sm:pt-28 pb-0 bg-tape-black text-white relative overflow-hidden -mt-px border-t border-white/10 fade-in-scroll">
+    
+    <!-- Ambient Red Studio Glow behind Watermark -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[48rem] h-[22rem] bg-tape-red/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+
+      <!-- Top Row: Brand Info (Left) & 4-Column Navigation (Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 mb-16 sm:mb-20">
+        
+        <!-- Brand Column (Left) -->
+        <div class="lg:col-span-4 space-y-4">
+          <a href="#hero" class="inline-block group mb-1">
+            <img src="Assets/logo.png" alt="GAME TAPE" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]">
+          </a>
+          <p class="text-xs sm:text-sm text-gray-400 font-normal leading-relaxed max-w-sm">
+            Where emerging creators learn the game to sell on TikTok Shop. 15 minutes a day, zero camera fear, and real accountability with Rickey Eugene Brown.
+          </p>
+        </div>
+
+        <!-- Multi-Column Links (Right - 3 Columns) -->
+        <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 text-xs sm:text-sm">
+          
+          <!-- Column 1: Quick Links -->
+          <div class="space-y-3">
+            <h4 class="font-heading font-semibold text-white tracking-wide text-xs uppercase text-gray-200">Quick Links</h4>
+            <ul class="space-y-2.5 text-gray-400">
+              <li><a href="#hero" class="hover:text-white transition">Home</a></li>
+              <li><a href="#the-freeze" class="hover:text-white transition">How It Works</a></li>
+              <li><a href="#rickey" class="hover:text-white transition">About Rickey</a></li>
+              <li><a href="#vsl" class="hover:text-white transition">Watch Breakdown</a></li>
+              <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 2: Programs -->
+          <div class="space-y-3">
+            <h4 class="font-heading font-semibold text-white tracking-wide text-xs uppercase text-gray-200">Programs</h4>
+            <ul class="space-y-2.5 text-gray-400">
+              <li><button onclick="openCheckoutModal()" class="hover:text-white transition text-left cursor-pointer">The First Seven</button></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Social & Connect -->
+          <div class="space-y-3">
+            <h4 class="font-heading font-semibold text-white tracking-wide text-xs uppercase text-gray-200">Connect</h4>
+            <ul class="space-y-2.5 text-gray-400">
+              <li><a href="https://tiktok.com/@rickeyeugenebrown" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">TikTok</a></li>
+              <li><a href="https://instagram.com/rickeyeugenebrown" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Instagram</a></li>
+              <li><a href="mailto:support@gametape.com" class="hover:text-white transition">Email Support</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Middle Row: Divider + Copyright & Legal Meta -->
+      <div class="pt-8 pb-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <div>
+          <span>© 2026 GAME TAPE</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-4 text-gray-400">
+          <a href="#" class="hover:text-white transition">Privacy Policy</a>
+          <span>·</span>
+          <a href="#" class="hover:text-white transition">Terms of Service</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Giant Typography Logo (Official Brand Graphic: logos (3).png) -->
+    <div class="w-full text-center overflow-hidden pointer-events-none select-none relative z-0 mt-8 sm:mt-12 -mb-2 sm:-mb-6 md:-mb-8 px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto">
+        <img src="Assets/logos (3).png" 
+             alt="GAME TAPE" 
+             class="w-full h-auto object-contain mx-auto opacity-85 [mask-image:linear-gradient(180deg,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.4)_75%,transparent_100%)] [-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.4)_75%,transparent_100%)] transform translate-y-2 sm:translate-y-4">
+      </div>
+    </div>
+
+  </footer>
+
+
+  <!-- ========================================================
+       INTERACTIVE CHECKOUT MODAL (DRAWER)
+       Shows $17 Starter + $9 Order Bump (Dynamic calculation)
+       ======================================================== -->
+  <div id="checkout-modal" data-lenis-prevent class="fixed inset-0 z-50 hidden bg-black/45 overflow-y-auto">
+    <div class="min-h-full flex items-start md:items-center justify-center p-4 sm:p-6">
+      <div class="bg-white/15 backdrop-blur-2xl backdrop-saturate-150 border border-white/30 text-tape-black w-full max-w-3xl rounded-3xl p-2 sm:p-2.5 relative my-4">
+
+        <!-- Close Button -->
+        <button onclick="closeCheckoutModal()" aria-label="Close" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-9 h-9 rounded-full bg-white/20 border border-white/40 text-white hover:bg-white/30 flex items-center justify-center z-10">✕</button>
+
+        <!-- Checkout Header -->
+        <div class="px-5 sm:px-7 pr-14 sm:pr-16 pt-5 sm:pt-6 pb-5 flex items-center gap-3">
+          <img src="Assets/logo.png" alt="GAME TAPE" class="h-7 sm:h-8 w-auto object-contain">
+          <span class="w-px h-6 bg-white/40"></span>
+          <h3 class="font-heading font-bold text-base sm:text-xl text-white whitespace-nowrap">Secure checkout</h3>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-2 sm:gap-2.5">
+
+          <!-- Left: order -->
+          <div class="bg-white/85 backdrop-blur-xl border border-white/60 rounded-2xl p-5 sm:p-6 flex flex-col">
+            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Your order</p>
+            <div class="flex items-start justify-between gap-4 pb-4 mb-4 border-b border-gray-200">
+              <div>
+                <span class="font-heading font-bold text-base sm:text-lg text-gray-950 block">The First Seven</span>
+                <span class="text-sm text-gray-500">The 7-Day TikTok Shop Starter</span>
+              </div>
+              <span class="font-heading font-bold text-lg text-gray-950">$17</span>
+            </div>
+
+            <!-- ORDER BUMP BOX (100 Product Hooks $9 tick box) -->
+            <label for="order-bump-checkbox" class="block bg-[#F7F8FA] border border-gray-200 hover:border-gray-400 transition rounded-xl p-4 cursor-pointer">
+              <span class="flex items-start gap-3">
+                <input type="checkbox" id="order-bump-checkbox" onchange="updateCheckoutTotal()" class="mt-1 w-5 h-5 accent-[#D30805] cursor-pointer flex-shrink-0">
+                <span class="text-sm leading-relaxed">
+                  <span class="font-heading font-bold text-gray-950 block mb-1">Add 100 Product Hooks for $9</span>
+                  <span class="text-gray-600 block">Never stare at your lens wondering how to start. 100 fill-in-the-blank opening lines across 10 product types, so people stop scrolling in the first 2 seconds.</span>
+                </span>
+              </span>
+            </label>
+
+            <div class="mt-auto pt-5 flex justify-between items-baseline">
+              <span class="text-sm font-medium text-gray-500">Total due today</span>
+              <span class="font-heading font-bold text-3xl text-gray-950" id="checkout-total-display">$17.00</span>
+            </div>
+          </div>
+
+          <!-- Right: details (simulated customer form) -->
+          <form onsubmit="handleCheckoutSubmit(event)" class="bg-white/85 backdrop-blur-xl border border-white/60 rounded-2xl p-5 sm:p-6 space-y-4">
+            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Your details</p>
+            <div>
+              <label for="cust-name" class="block text-sm font-medium text-gray-800 mb-1.5">Full name</label>
+              <input type="text" id="cust-name" placeholder="e.g. Ama Johnson" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-950 placeholder-gray-400 focus:outline-none focus:border-gray-950">
+            </div>
+
+            <div>
+              <label for="cust-email" class="block text-sm font-medium text-gray-800 mb-1.5">Email <span class="text-gray-500 font-normal">(where Day 1 lands)</span></label>
+              <input type="email" id="cust-email" placeholder="you@example.com" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-950 placeholder-gray-400 focus:outline-none focus:border-gray-950">
+            </div>
+
+            <!-- Simulated Card Field -->
+            <div>
+              <span class="block text-sm font-medium text-gray-800 mb-1.5">Card</span>
+              <div class="bg-[#F7F8FA] border border-gray-300 rounded-xl px-4 py-3 text-sm flex items-center justify-between text-gray-500">
+                <span>•••• •••• •••• 4242</span>
+                <span class="text-xs">Demo card</span>
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover font-heading font-bold text-sm sm:text-base text-white transition">
+              Complete purchase
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================
+       VANILLA JAVASCRIPT & LENIS SMOOTH SCROLL CONTROLLERS
+       ======================================================== -->
+  <!-- Lenis Super Smooth Scrolling Library (Local High-Performance Asset) -->
+  <script src="Assets/lenis.min.js"></script>
+  <script src="funnel.js"></script>
+  <script>
+    /* ========================================================
+       LENIS SUPER SMOOTH SCROLL CONTROLLER
+       ======================================================== */
+    let lenis = null;
+    try {
+      if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+          duration: 1.4, // Slow, silky smooth inertia damping
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential deceleration
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 1.05,
+          touchMultiplier: 1.5,
+          infinite: false,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        window.lenis = lenis;
+      }
+    } catch (e) {
+      console.warn('Lenis could not be initialized:', e);
+    }
+
+    // Connect all anchor clicks to Lenis smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const hash = this.getAttribute('href');
+        if (hash && hash !== '#') {
+          const target = document.querySelector(hash);
+          if (target) {
+            e.preventDefault();
+            if (lenis) {
+              lenis.scrollTo(target, { offset: -85, duration: 1.4 });
+            } else {
+              scrollToSection(hash.substring(1));
+            }
+          }
+        }
+      });
+    });
+
+    // Smooth scrolling to anchor with fixed navbar offset
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        if (lenis) {
+          lenis.scrollTo(element, { offset: -85, duration: 1.4 });
+        } else {
+          const yOffset = -85;
+          const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+    }
+
+    /* ========================================================
+       SLOW & SMOOTH SCROLL REVEAL OBSERVER
+       ======================================================== */
+    function initScrollReveal() {
+      const revealElements = document.querySelectorAll('.fade-in-scroll');
+      
+      if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.12,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight - 30) {
+            el.classList.add('is-revealed');
+          } else {
+            revealObserver.observe(el);
+          }
+        });
+      } else {
+        revealElements.forEach(el => el.classList.add('is-revealed'));
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initScrollReveal);
+    } else {
+      initScrollReveal();
+    }
+
+    // VSL Player Controller
+    function handleVslPlay() {
+      const video = document.getElementById('vsl-video');
+      if (video) {
+        video.classList.remove('hidden');
+        video.play();
+      }
+    }
+
+    // Modal Controllers
+    function openCheckoutModal() {
+      document.getElementById('checkout-modal').classList.remove('hidden');
+      if (lenis) lenis.stop();
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+      if (lenis) lenis.start();
+    }
+
+    // Dynamic Price Calculation for Order Bump ($17 vs $26)
+    function updateCheckoutTotal() {
+      const bumpChecked = document.getElementById('order-bump-checkbox').checked;
+      const totalDisplay = document.getElementById('checkout-total-display');
+      if (bumpChecked) {
+        totalDisplay.innerText = '$26.00';
+      } else {
+        totalDisplay.innerText = '$17.00';
+      }
+    }
+
+    // Handle Simulated Checkout: start a fresh order, then go to the first after-checkout offer
+    function handleCheckoutSubmit(e) {
+      e.preventDefault();
+      try { localStorage.removeItem(ORDER_KEY); } catch (err) {}
+      goTo('offer-shop-ready.html', {
+        name: document.getElementById('cust-name').value,
+        hooks: document.getElementById('order-bump-checkbox').checked
+      });
+    }
+
+    // FAQ Accordion Toggle
+    function toggleFaq(index) {
+      const content = document.getElementById(`faq-content-${index}`);
+      const icon = document.getElementById(`faq-icon-${index}`);
+      if (!content) return;
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        if (icon) icon.classList.add('rotate-180');
+      } else {
+        content.classList.add('hidden');
+        if (icon) icon.classList.remove('rotate-180');
+      }
+    }
+
+    // VSL Mock Player action
+    function playMockVideo() {
+      const btn = document.getElementById('vsl-play-btn');
+      btn.innerHTML = '<span class="text-xs font-mono font-bold">PLAYING...</span>';
+      setTimeout(() => {
+        alert("This demo site plays Rickey's 4-minute intro clip here. In the live version, this streams via HighLevel / Bunny.net.");
+        btn.innerHTML = '<svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+      }, 300);
+    }
+
+    /* ========================================================
+       SPOTLIGHT VIDEO CARDS CONTROLLER (Permanent Selection)
+       ======================================================== */
+    function handleCardMouseEnter(videoId) {
+      const video = document.getElementById(videoId);
+      if (video && videoId !== 'center-video') {
+        const playPromise = video.play();
+        if (playPromise !== undefined) playPromise.catch(() => {});
+      }
+    }
+
+    function handleCardMouseLeave(videoId) {
+      const video = document.getElementById(videoId);
+      if (video && videoId !== 'center-video') {
+        video.pause();
+      }
+    }
+
+  </script>
+
+</body>
+</html>

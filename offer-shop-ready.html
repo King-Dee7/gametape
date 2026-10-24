@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME TAPE | Shop Ready</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tape: { black: '#101017', dark: '#0B0B10', card: '#161623', border: '#27273A', red: '#D30805', redhover: '#B50604', muted: '#9E9EB2' }
+          },
+          fontFamily: { heading: ['"Archivo"', 'sans-serif'], body: ['Poppins', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .font-heading { font-family: 'Archivo', sans-serif; letter-spacing: -0.01em; }
+    /* Frosted glass, same as the homepage offer ladder (no outer shadow) */
+    .glass-dark { background: rgba(16, 16, 23, 0.82); backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%); border: 2px solid rgba(211, 8, 5, 0.85); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12); }
+    .glass-inset { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.7); box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9); }
+    .bracket-tl { border-top: 2px solid #D30805; border-left: 2px solid #D30805; }
+    .bracket-tr { border-top: 2px solid #D30805; border-right: 2px solid #D30805; }
+    .bracket-bl { border-bottom: 2px solid #D30805; border-left: 2px solid #D30805; }
+    .bracket-br { border-bottom: 2px solid #D30805; border-right: 2px solid #D30805; }
+    .rec-dot { display: inline-block; width: 8px; height: 8px; background-color: #D30805; border-radius: 50%; animation: recPulse 1.2s infinite; }
+    @keyframes recPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @media (prefers-reduced-motion: reduce) { .rec-dot { animation: none; } }
+    .dot-matrix { background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px); background-size: 28px 28px; }
+  </style>
+</head>
+
+<body class="bg-[#F7F8FA] text-tape-black antialiased selection:bg-tape-red selection:text-white">
+
+  <!-- Funnel header: logo and progress only, no links away from the offer -->
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+      <img src="Assets/logo-dark.png" alt="GAME TAPE" class="h-8 sm:h-9 w-auto object-contain">
+      <span class="sm:hidden text-xs font-semibold text-gray-600">Step 2 of 4</span>
+      <ol class="hidden sm:flex items-center gap-2 text-xs font-medium">
+        <li class="flex items-center gap-1.5 text-tape-red"><span class="w-5 h-5 rounded-full bg-tape-red text-white flex items-center justify-center text-[10px]">✓</span><span class="hidden sm:inline">You're in</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-gray-950"><span class="w-5 h-5 rounded-full bg-tape-black text-white flex items-center justify-center text-[10px]">2</span><span class="hidden sm:inline">Shop Ready</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-gray-400"><span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px]">3</span><span class="hidden sm:inline">The Tape Room</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-gray-400"><span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px]">4</span><span class="hidden sm:inline">Welcome</span></li>
+      </ol>
+    </div>
+  </header>
+
+  <main class="relative py-14 sm:py-20 overflow-hidden">
+    <div class="absolute inset-0 dot-matrix opacity-45 pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+
+      <!-- Confirmation strip -->
+      <div class="max-w-3xl mx-auto mb-10 bg-white border border-gray-200 rounded-2xl px-5 py-4 flex items-start gap-3">
+        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-tape-red text-white flex items-center justify-center text-xs font-bold mt-0.5">✓</span>
+        <p class="text-xs sm:text-sm text-gray-700 leading-relaxed">
+          <strong class="text-gray-950">You're in<span data-first-name data-prefix=", "></span>.</strong> Your First Seven is confirmed and Day 1 lands in your inbox tomorrow at 9am Eastern. One quick thing before you go.
+        </p>
+      </div>
+
+      <!-- Heading block (same format as the homepage sections) -->
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <div class="inline-flex items-center bg-white border border-gray-200 px-3.5 py-1.5 rounded-full mb-3 text-xs font-semibold text-gray-800">
+          <span>After the First Seven</span>
+        </div>
+        <h1 class="font-heading font-bold text-3xl sm:text-5xl tracking-tight text-gray-950 mb-4">
+          Want to do the next four weeks with me?
+        </h1>
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          The First Seven gets you seven videos and a plan. Shop Ready is where we keep it going. Four weeks of product videos, a small group doing it with you, and Rickey helping you with your videos at the end.
+        </p>
+      </div>
+
+      <!-- Offer card: dark price panel + frosted details panel -->
+      <div class="max-w-4xl mx-auto grid md:grid-cols-5 gap-2 sm:gap-2.5 bg-white/50 backdrop-blur-xl border border-white/80 rounded-3xl p-2 sm:p-2.5">
+
+        <!-- Left: name and price -->
+        <div class="md:col-span-2 relative bg-tape-black text-white rounded-2xl p-6 sm:p-8 flex flex-col overflow-hidden min-h-[420px]">
+          <!-- Background photo with a dark fade so the text stays readable -->
+          <img src="Assets/classroom-web.jpg" alt="" class="absolute bottom-0 left-0 w-full h-[66%] object-cover object-[72%_15%] [mask-image:linear-gradient(to_bottom,transparent,black_25%)]">
+          <div class="absolute bottom-0 left-0 w-full h-[66%] bg-gradient-to-b from-[#101017] from-[3%] via-[#101017]/15 via-40% to-[#101017]/85"></div>
+          <span class="absolute z-10 top-4 left-4 w-5 h-5 bracket-tl"></span>
+          <span class="absolute z-10 top-4 right-4 w-5 h-5 bracket-tr"></span>
+          <span class="absolute z-10 bottom-4 left-4 w-5 h-5 bracket-bl"></span>
+          <span class="absolute z-10 bottom-4 right-4 w-5 h-5 bracket-br"></span>
+          <h2 class="relative z-10 font-heading font-bold text-3xl sm:text-4xl tracking-tight mb-2">Shop Ready</h2>
+          <p class="relative z-10 text-sm text-gray-200 leading-relaxed mb-8">4 weeks with a group of about 20 people, and me.</p>
+
+          <div class="relative z-10 mt-auto">
+            <div class="flex items-baseline gap-2">
+              <span class="font-heading font-bold text-5xl sm:text-6xl tracking-tight">$79</span>
+              <span class="text-sm text-gray-300">one-time</span>
+            </div>
+            <p class="text-xs text-gray-300 mt-2">Your group's start date comes by email.</p>
+          </div>
+        </div>
+
+        <!-- Right: what you get, add-on, button -->
+        <div class="md:col-span-3 glass-inset rounded-2xl p-6 sm:p-8">
+          <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-5">What you get</p>
+          <ul class="space-y-5 mb-7">
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-tape-red text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+              <span><span class="block font-heading font-bold text-sm sm:text-base text-gray-950">4 weeks of product videos</span><span class="block text-xs sm:text-sm text-gray-600 leading-relaxed mt-0.5">One small step a day, picking up right where the First Seven leaves off.</span></span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-tape-red text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+              <span><span class="block font-heading font-bold text-sm sm:text-base text-gray-950">A private group of about 20</span><span class="block text-xs sm:text-sm text-gray-600 leading-relaxed mt-0.5">Share your videos, get feedback from people at the same stage as you, and keep each other posting when it gets hard.</span></span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-tape-red text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+              <span><span class="block font-heading font-bold text-sm sm:text-base text-gray-950">A live review with me on Day 28</span><span class="block text-xs sm:text-sm text-gray-600 leading-relaxed mt-0.5">A 30-minute call where we go through your videos together.</span></span>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="flex-shrink-0 w-10 h-10 rounded-xl bg-tape-red text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.5"/></svg></span>
+              <span><span class="block font-heading font-bold text-sm sm:text-base text-gray-950">How I pick and review products</span><span class="block text-xs sm:text-sm text-gray-600 leading-relaxed mt-0.5">The questions I ask before I film anything, and how I talk about a product on camera.</span></span>
+            </li>
+          </ul>
+
+          <!-- Batch It add-on (tick box) -->
+          <label for="batch-it" class="flex items-center gap-4 bg-white border border-gray-200 hover:border-gray-400 transition rounded-2xl p-4 mb-6 cursor-pointer">
+            <input type="checkbox" id="batch-it" onchange="updateTotal()" class="w-5 h-5 accent-[#D30805] cursor-pointer flex-shrink-0">
+            <span class="flex-1 text-xs sm:text-sm leading-relaxed">
+              <span class="font-heading font-bold text-gray-950 block">Add Batch It</span>
+              <span class="text-gray-600">Finished scripts, a shot list and CapCut templates, so you can film a whole week of videos in one sitting.</span>
+            </span>
+            <span class="font-heading font-bold text-gray-950 text-sm sm:text-base whitespace-nowrap">+$27</span>
+          </label>
+
+          <button onclick="acceptShopReady()" class="w-full py-4 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-sm sm:text-base font-heading font-bold tracking-wide transition">
+            Yes, add Shop Ready · <span id="offer-total">$79</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <button onclick="goTo('offer-self-paced.html', { shopReady: null, batchIt: false })" class="text-xs sm:text-sm text-gray-500 hover:text-gray-900 underline underline-offset-4 transition">
+          No thanks, I'll stick with the First Seven
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+      <span>© 2026 GAME TAPE</span>
+      <div class="flex items-center gap-4"><a href="#" class="hover:text-gray-900">Privacy Policy</a><span>·</span><a href="#" class="hover:text-gray-900">Terms of Service</a></div>
+    </div>
+  </footer>
+
+  <script src="funnel.js"></script>
+  <script>
+    function updateTotal() {
+      document.getElementById('offer-total').textContent = document.getElementById('batch-it').checked ? '$106' : '$79';
+    }
+
+    function acceptShopReady() {
+      goTo('offer-club.html', { shopReady: 'cohort', batchIt: document.getElementById('batch-it').checked });
+    }
+  </script>
+</body>
+</html>

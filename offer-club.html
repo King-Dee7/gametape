@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME TAPE | The Tape Room</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tape: { black: '#101017', dark: '#0B0B10', card: '#161623', border: '#27273A', red: '#D30805', redhover: '#B50604', muted: '#9E9EB2' }
+          },
+          fontFamily: { heading: ['"Archivo"', 'sans-serif'], body: ['Poppins', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .font-heading { font-family: 'Archivo', sans-serif; letter-spacing: -0.01em; }
+    .dot-matrix { background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px); background-size: 28px 28px; }
+  </style>
+</head>
+
+<body class="bg-[#F7F8FA] text-tape-black antialiased selection:bg-tape-red selection:text-white">
+
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+      <img src="Assets/logo-dark.png" alt="GAME TAPE" class="h-8 sm:h-9 w-auto object-contain">
+      <span class="sm:hidden text-xs font-semibold text-gray-600">Step 3 of 4</span>
+      <ol class="hidden sm:flex items-center gap-2 text-xs font-medium">
+        <li class="flex items-center gap-1.5 text-tape-red"><span class="w-5 h-5 rounded-full bg-tape-red text-white flex items-center justify-center text-[10px]">✓</span><span class="hidden sm:inline">You're in</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-tape-red"><span class="w-5 h-5 rounded-full bg-tape-red text-white flex items-center justify-center text-[10px]">✓</span><span class="hidden sm:inline">Shop Ready</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-gray-950"><span class="w-5 h-5 rounded-full bg-tape-black text-white flex items-center justify-center text-[10px]">3</span><span class="hidden sm:inline">The Tape Room</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-gray-400"><span class="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center text-[10px]">4</span><span class="hidden sm:inline">Welcome</span></li>
+      </ol>
+    </div>
+  </header>
+
+  <main class="relative py-14 sm:py-20 overflow-hidden">
+    <div class="absolute inset-0 dot-matrix opacity-45 pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <div class="inline-flex items-center bg-white border border-gray-200 px-3.5 py-1.5 rounded-full mb-3 text-xs font-semibold text-gray-800">
+          <span>Last one, promise</span>
+        </div>
+        <h1 class="font-heading font-bold text-3xl sm:text-5xl tracking-tight text-gray-950 mb-4">
+          Want me in your corner every month?
+        </h1>
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+          Posting is easier when you're not doing it alone. The Tape Room is where we keep each other going: what I'm picking, what's working, and a live review every month.
+        </p>
+      </div>
+
+      <div class="max-w-xl mx-auto bg-white border border-gray-200 rounded-3xl p-2 sm:p-2.5">
+        <div class="p-5 sm:p-6 pb-6 sm:pb-7">
+          <h2 class="font-heading text-xl sm:text-2xl font-bold text-gray-950 mb-1.5">The Tape Room</h2>
+          <p class="text-xs text-gray-500 font-medium mb-6 leading-relaxed">The monthly community for people who keep posting.</p>
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-heading text-4xl sm:text-5xl font-bold text-gray-950 tracking-tight">$19.99</span>
+            <span class="text-xs text-gray-500 font-medium">/ month</span>
+          </div>
+        </div>
+
+        <div class="bg-[#F0F2F6] rounded-2xl p-5 sm:p-6">
+          <ul class="space-y-3.5 text-xs sm:text-sm text-gray-800 font-medium mb-6">
+            <li class="flex items-start gap-2.5"><span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red flex items-center justify-center mt-0.5"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span><span>My product picks, every month</span></li>
+            <li class="flex items-start gap-2.5"><span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red flex items-center justify-center mt-0.5"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span><span>A 60-minute live group video review each month</span></li>
+            <li class="flex items-start gap-2.5"><span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red flex items-center justify-center mt-0.5"><svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></span><span>Milestones we celebrate together at 250, 500 and 1,000 followers</span></li>
+          </ul>
+
+          <button onclick="goTo('thank-you.html', { club: true })" class="w-full py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-xs sm:text-sm font-heading font-bold tracking-wide transition">
+            Yes, add The Tape Room · $19.99/month
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center mt-6">
+        <button onclick="goTo('thank-you.html', { club: false })" class="text-xs sm:text-sm text-gray-500 hover:text-gray-900 underline underline-offset-4 transition">
+          No thanks, take me to my welcome page
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+      <span>© 2026 GAME TAPE</span>
+      <div class="flex items-center gap-4"><a href="#" class="hover:text-gray-900">Privacy Policy</a><span>·</span><a href="#" class="hover:text-gray-900">Terms of Service</a></div>
+    </div>
+  </footer>
+
+  <script src="funnel.js"></script>
+</body>
+</html>

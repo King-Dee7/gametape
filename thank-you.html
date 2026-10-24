@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAME TAPE | You're in</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tape: { black: '#101017', dark: '#0B0B10', card: '#161623', border: '#27273A', red: '#D30805', redhover: '#B50604', muted: '#9E9EB2' }
+          },
+          fontFamily: { heading: ['"Archivo"', 'sans-serif'], body: ['Poppins', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .font-heading { font-family: 'Archivo', sans-serif; letter-spacing: -0.01em; }
+    .dot-matrix { background-image: radial-gradient(#CBD5E1 1.2px, transparent 1.2px); background-size: 28px 28px; }
+    .rec-dot { display: inline-block; width: 10px; height: 10px; background-color: #D30805; border-radius: 50%; animation: recPulse 1.2s infinite; }
+    @keyframes recPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @media (prefers-reduced-motion: reduce) { .rec-dot { animation: none; } }
+    .opt.is-picked { background: #D30805; border-color: #D30805; color: #fff; }
+  </style>
+</head>
+
+<body class="bg-[#F7F8FA] text-tape-black antialiased selection:bg-tape-red selection:text-white">
+
+  <header class="bg-white border-b border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+      <img src="Assets/logo-dark.png" alt="GAME TAPE" class="h-8 sm:h-9 w-auto object-contain">
+      <span class="sm:hidden text-xs font-semibold text-gray-600">Step 4 of 4</span>
+      <ol class="hidden sm:flex items-center gap-2 text-xs font-medium">
+        <li class="flex items-center gap-1.5 text-tape-red"><span class="w-5 h-5 rounded-full bg-tape-red text-white flex items-center justify-center text-[10px]">✓</span><span class="hidden sm:inline">You're in</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-tape-red"><span class="w-5 h-5 rounded-full bg-tape-red text-white flex items-center justify-center text-[10px]">✓</span><span class="hidden sm:inline">Shop Ready</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-tape-red"><span class="w-5 h-5 rounded-full bg-tape-red text-white flex items-center justify-center text-[10px]">✓</span><span class="hidden sm:inline">The Tape Room</span></li>
+        <li class="w-4 sm:w-6 h-px bg-gray-300"></li>
+        <li class="flex items-center gap-1.5 text-gray-950"><span class="w-5 h-5 rounded-full bg-tape-black text-white flex items-center justify-center text-[10px]">4</span><span class="hidden sm:inline">Welcome</span></li>
+      </ol>
+    </div>
+  </header>
+
+  <!-- Welcome block (dark, like the homepage hero) -->
+  <section class="bg-[#0E0E18] text-white py-16 sm:py-24">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <h1 class="font-heading font-bold text-3xl sm:text-5xl tracking-tight mb-5">
+        Welcome<span data-first-name data-prefix=", "></span>. Day 1 lands in your inbox tomorrow at 9am Eastern.
+      </h1>
+      <p class="text-gray-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+        "I'm about to give you the game I wish somebody gave me. Fifteen minutes a day, seven days, and you end up with seven product videos filmed." <span class="text-white font-semibold">Rickey</span>
+      </p>
+    </div>
+  </section>
+
+  <main class="relative py-14 sm:py-20 overflow-hidden">
+    <div class="absolute inset-0 dot-matrix opacity-45 pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 relative z-10 grid lg:grid-cols-12 gap-6 items-start">
+
+      <!-- Left: three questions -->
+      <div class="lg:col-span-7 bg-white border border-gray-200 rounded-3xl p-6 sm:p-8">
+        <h2 class="font-heading font-bold text-xl sm:text-2xl text-gray-950 mb-1.5">Three quick questions</h2>
+        <p class="text-xs sm:text-sm text-gray-500 mb-7">About 10 seconds. Your answers help me know how to help you better. Tap one answer for each.</p>
+
+        <div class="space-y-7 text-xs sm:text-sm" id="survey">
+          <div data-q="stopping">
+            <p class="font-semibold text-gray-950 mb-2.5">1. What's stopping you from posting?</p>
+            <div class="grid sm:grid-cols-2 gap-2">
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">Somebody I know might see it</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">I don't know what to say on camera</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">I don't know which products to pick</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">I don't know how TikTok Shop really works</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">I started and stopped</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">Something else</button>
+            </div>
+          </div>
+
+          <div data-q="followers">
+            <p class="font-semibold text-gray-950 mb-2.5">2. How many followers do you have on TikTok right now?</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-gray-700 hover:border-gray-950 transition">No account yet</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-gray-700 hover:border-gray-950 transition">Under 250</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-gray-700 hover:border-gray-950 transition">250 to 499</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-gray-700 hover:border-gray-950 transition">500 to 999</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-gray-700 hover:border-gray-950 transition col-span-2 sm:col-span-1">1,000 or more</button>
+            </div>
+          </div>
+
+          <div data-q="goal">
+            <p class="font-semibold text-gray-950 mb-2.5">3. What do you want TikTok Shop to do for you?</p>
+            <div class="grid sm:grid-cols-2 gap-2">
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">Bring in a little extra money</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">Grow into a real income</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">Get me free products to review</button>
+              <button type="button" class="opt p-2.5 rounded-xl border border-gray-200 text-left text-gray-700 hover:border-gray-950 transition">Let me see if it's for me</button>
+            </div>
+          </div>
+
+          <button id="survey-send" onclick="sendAnswers()" class="w-full py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white font-heading font-bold tracking-wide transition">
+            Send my answers
+          </button>
+          <p id="survey-done" class="hidden text-center font-semibold text-gray-950">Got it, thank you. See you tomorrow at 9am Eastern.</p>
+        </div>
+      </div>
+
+      <!-- Right: order summary and next steps -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="bg-tape-black border-2 border-tape-red rounded-3xl p-2 sm:p-2.5">
+          <div class="p-5 sm:p-6">
+            <h2 class="font-heading font-bold text-lg sm:text-xl text-white">What you got</h2>
+          </div>
+          <div class="bg-white rounded-2xl p-5 sm:p-6">
+            <ul id="order-list" class="space-y-3 text-xs sm:text-sm text-gray-800 font-medium"></ul>
+            <div class="flex items-center justify-between pt-4 mt-4 border-t border-gray-200 text-sm">
+              <span class="text-gray-500">Paid today</span>
+              <span id="order-total" class="font-heading font-bold text-xl text-gray-950"></span>
+            </div>
+            <p id="order-monthly" class="hidden text-[11px] text-gray-500 mt-1 text-right">Includes the first month of The Tape Room, then $19.99/month</p>
+          </div>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-3xl p-6 sm:p-7">
+          <h2 class="font-heading font-bold text-lg sm:text-xl text-gray-950 mb-4">Before tomorrow</h2>
+          <ol class="space-y-3.5 text-xs sm:text-sm text-gray-700">
+            <li class="flex gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-tape-red text-white text-xs font-bold flex items-center justify-center">1</span><span>Check your inbox for your receipt. If it's not there, peek in spam or promotions.</span></li>
+            <li class="flex gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-tape-red text-white text-xs font-bold flex items-center justify-center">2</span><span>Add our email to your contacts, so Day 1 doesn't get lost.</span></li>
+            <li class="flex gap-3"><span class="flex-shrink-0 w-6 h-6 rounded-full bg-tape-red text-white text-xs font-bold flex items-center justify-center">3</span><span>That's it. No filming until Day 2, I promise.</span></li>
+          </ol>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500">
+      <span>© 2026 GAME TAPE</span>
+      <div class="flex items-center gap-4"><a href="#" class="hover:text-gray-900">Privacy Policy</a><span>·</span><a href="#" class="hover:text-gray-900">Terms of Service</a></div>
+    </div>
+  </footer>
+
+  <script src="funnel.js"></script>
+  <script>
+    // Order summary, built from what the buyer picked on each page
+    function renderOrder() {
+      const o = readOrder();
+      const items = [['The First Seven', 17]];
+      if (o.hooks) items.push(['100 Product Hooks', 9]);
+      if (o.shopReady === 'cohort') items.push(['Shop Ready (with a group, your start date comes by email)', 79]);
+      if (o.shopReady === 'self') items.push(['Shop Ready, self-paced', 39]);
+      if (o.batchIt) items.push(['Batch It', 27]);
+
+      document.getElementById('order-list').innerHTML = items.map(([name, price]) =>
+        `<li class="flex items-start justify-between gap-4"><span>${name}</span><span class="text-gray-950">$${price}</span></li>`
+      ).join('') + (o.club ? '<li class="flex items-start justify-between gap-4"><span>The Tape Room</span><span class="text-gray-950">$19.99/mo</span></li>' : '');
+
+      const total = items.reduce((sum, [, price]) => sum + price, 0) + (o.club ? 19.99 : 0);
+      document.getElementById('order-total').textContent = '$' + total.toFixed(2);
+      if (o.club) document.getElementById('order-monthly').classList.remove('hidden');
+    }
+
+    // One answer per question
+    document.querySelectorAll('#survey [data-q]').forEach(group => {
+      group.querySelectorAll('.opt').forEach(btn => {
+        btn.addEventListener('click', () => {
+          group.querySelectorAll('.opt').forEach(b => b.classList.remove('is-picked'));
+          btn.classList.add('is-picked');
+        });
+      });
+    });
+
+    function sendAnswers() {
+      const answers = {};
+      document.querySelectorAll('#survey [data-q]').forEach(group => {
+        const picked = group.querySelector('.opt.is-picked');
+        answers[group.dataset.q] = picked ? picked.textContent.trim() : null;
+      });
+      saveOrder({ answers });
+      document.getElementById('survey-send').classList.add('hidden');
+      document.getElementById('survey-done').classList.remove('hidden');
+    }
+
+    renderOrder();
+  </script>
+</body>
+</html>
