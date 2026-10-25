@@ -138,6 +138,31 @@
       background: radial-gradient(ellipse 85% 75% at 50% 35%, #181828 0%, #0E0E18 65%, #08080E 100%);
     }
 
+    /* Hero Gradient Bars: white rising from the bottom, tallest and brightest at the edges, obsidian in the middle */
+    .hero-bars {
+      display: flex;
+      align-items: flex-end;
+    }
+    .hero-bar {
+      flex: 1;
+      height: var(--h);
+      opacity: var(--o);
+      background: linear-gradient(to top, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);
+    }
+    /* Fades the bottom of the hero into the white section below, so there's no hard edge */
+    .hero-bottom-fade {
+      /* Eased curve: starts imperceptibly so there's no visible line where the fade begins */
+      background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.02) 15%,
+        rgba(255, 255, 255, 0.07) 30%,
+        rgba(255, 255, 255, 0.16) 45%,
+        rgba(255, 255, 255, 0.3) 60%,
+        rgba(255, 255, 255, 0.5) 74%,
+        rgba(255, 255, 255, 0.75) 87%,
+        #FFFFFF 100%);
+    }
+
     /* Frosted Glass Utilities for Offer Ladder */
     .frosted-glass-dark {
       background: rgba(16, 16, 23, 0.82);
@@ -152,6 +177,47 @@
       -webkit-backdrop-filter: blur(24px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.85);
       box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.06), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+    }
+    /* Pain pills around the phone: same frosted glass as the checkout panels; blurs the phone where they overlap */
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(16, 16, 23, 0.08);
+      box-shadow: 0 6px 16px -10px rgba(16, 16, 23, 0.1), inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+    }
+    .glass-pill-icon {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 1px 3px rgba(16, 16, 23, 0.08);
+    }
+    /* Pain pills marquee (below xl): two rows scrolling in opposite directions, paused on touch */
+    .pain-marquee-row {
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+    .pain-marquee-track {
+      display: flex;
+      gap: 12px;
+      width: max-content;
+      padding: 6px 0 16px;
+      animation: painMarquee 45s linear infinite;
+    }
+    .pain-marquee-row.is-reverse .pain-marquee-track {
+      animation-direction: reverse;
+    }
+    .pain-marquee-row:hover .pain-marquee-track,
+    .pain-marquee-row:active .pain-marquee-track {
+      animation-play-state: paused;
+    }
+    @keyframes painMarquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-50% - 6px)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pain-marquee-track { animation: none; }
+      .pain-marquee-row { overflow-x: auto; }
     }
     .frosted-glass-inset-light {
       background: rgba(255, 255, 255, 0.85);
@@ -300,9 +366,10 @@
 <body class="bg-tape-black text-white antialiased selection:bg-tape-red selection:text-white">
 
   <!-- Floating Pill Navigation (Fixed across entire page scroll) -->
-  <header class="fixed top-4 left-0 right-0 z-50 pointer-events-none hero-nav-entry">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="bg-white/95 backdrop-blur-md border border-gray-200/90 shadow-xl shadow-black/10 rounded-full px-5 sm:px-7 py-3 sm:py-3.5 flex items-center justify-between pointer-events-auto transition-all duration-300">
+  <!-- Mobile: full-width rectangle bar with menu icon. md and up: floating pill -->
+  <header class="fixed top-0 md:top-4 left-0 right-0 z-50 pointer-events-none hero-nav-entry">
+    <div class="max-w-6xl mx-auto md:px-6">
+      <div class="bg-white md:bg-white/95 md:backdrop-blur-md border-b md:border border-gray-200 md:border-gray-200/90 shadow-md md:shadow-xl shadow-black/10 md:rounded-full px-4 md:px-7 py-3 md:py-3.5 flex items-center justify-between pointer-events-auto transition-all duration-300">
         
         <!-- Real Logo from Assets (Dark text for white nav) -->
         <a href="#hero" class="flex items-center group">
@@ -318,34 +385,66 @@
         </nav>
 
         <!-- CTA in Header (High contrast dark pill button) -->
-        <div class="flex items-center space-x-3">
+        <div class="hidden md:flex items-center space-x-3">
           <button onclick="openCheckoutModal()" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-tape-black hover:bg-black rounded-full transition-all shadow-md">
             <span>Start today</span>
           </button>
         </div>
 
+        <!-- Mobile Menu Button (three lines, turns into an X when open) -->
+        <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden inline-flex items-center justify-center w-10 h-10 -mr-2 text-tape-black cursor-pointer">
+          <svg id="mobile-menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2.25" d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg id="mobile-menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2.25" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+
       </div>
+
+      <!-- Mobile Menu Panel -->
+      <nav id="mobile-menu" class="md:hidden hidden bg-white border-b border-gray-200 shadow-md pointer-events-auto px-4 pb-5">
+        <a href="#the-freeze" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">How It Works</a>
+        <a href="#vsl" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">Watch Breakdown</a>
+        <a href="#offer-ladder" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">The 7 Days</a>
+        <a href="#faq" class="block py-3.5 text-base font-medium text-gray-800">FAQ</a>
+        <button onclick="toggleMobileMenu(false); openCheckoutModal()" class="mt-3 w-full py-3.5 rounded-full bg-tape-black text-white text-sm font-semibold cursor-pointer">
+          Start today
+        </button>
+      </nav>
     </div>
   </header>
 
   <!-- ========================================================
        HERO & NAVIGATION SECTION (OBSIDIAN TAPE ROOM)
        ======================================================== -->
-  <section id="hero" class="relative bg-[#0E0E18] text-white pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 overflow-hidden">
+  <section id="hero" class="relative bg-[#0E0E18] text-white pt-44 sm:pt-32 md:pt-36 pb-36 sm:pb-52 overflow-hidden">
 
     <!-- Obsidian Cinema Background Layer -->
     <div class="absolute inset-0 pointer-events-none select-none z-0">
       <!-- Deep Obsidian Dark Cinema Gradient -->
       <div class="absolute inset-0 hero-dark-gradient"></div>
       
-      <!-- Pulsing Ambient Red Aura behind Center Card -->
-      <div class="absolute top-[58%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[360px] bg-tape-red/20 rounded-full blur-[120px]"></div>
+      <!-- Gradient Bars (V shape: edges full height and white, center short and invisible) -->
+      <div class="hero-bars absolute inset-0">
+        <div class="hero-bar" style="--h:100%;--o:1"></div>
+        <div class="hero-bar" style="--h:90%;--o:0.79"></div>
+        <div class="hero-bar" style="--h:80%;--o:0.6"></div>
+        <div class="hero-bar" style="--h:70%;--o:0.43"></div>
+        <div class="hero-bar" style="--h:60%;--o:0.28"></div>
+        <div class="hero-bar" style="--h:50%;--o:0.15"></div>
+        <div class="hero-bar" style="--h:40%;--o:0.05"></div>
+        <div class="hero-bar" style="--h:30%;--o:0"></div>
+        <div class="hero-bar" style="--h:40%;--o:0.05"></div>
+        <div class="hero-bar" style="--h:50%;--o:0.15"></div>
+        <div class="hero-bar" style="--h:60%;--o:0.28"></div>
+        <div class="hero-bar" style="--h:70%;--o:0.43"></div>
+        <div class="hero-bar" style="--h:80%;--o:0.6"></div>
+        <div class="hero-bar" style="--h:90%;--o:0.79"></div>
+        <div class="hero-bar" style="--h:100%;--o:1"></div>
+      </div>
+      <div class="hero-bottom-fade absolute inset-x-0 bottom-0 h-[45%]"></div>
 
       <!-- Viewfinder Corner Brackets In Dark Canvas -->
-      <div class="absolute top-28 left-6 sm:left-10 w-6 h-6 border-t-2 border-l-2 border-white/20"></div>
-      <div class="absolute top-28 right-6 sm:right-10 w-6 h-6 border-t-2 border-r-2 border-white/20"></div>
-      <div class="hidden sm:block absolute bottom-16 left-6 sm:left-10 w-6 h-6 border-b-2 border-l-2 border-white/20"></div>
-      <div class="hidden sm:block absolute bottom-16 right-6 sm:right-10 w-6 h-6 border-b-2 border-r-2 border-white/20"></div>
+      <div class="hidden sm:block absolute top-28 left-6 sm:left-10 w-6 h-6 border-t-2 border-l-2 border-white/20"></div>
+      <div class="hidden sm:block absolute top-28 right-6 sm:right-10 w-6 h-6 border-t-2 border-r-2 border-white/20"></div>
     </div>
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 pt-2 sm:pt-4">
@@ -360,8 +459,8 @@
         </div>
 
         <h1 class="font-heading font-bold text-2xl sm:text-4xl md:text-[2.65rem] lg:text-[3.25rem] tracking-tight text-white leading-[1.3] mb-4 sm:mb-6 hero-title-entry">
-          <span class="sm:whitespace-nowrap block mb-1.5 sm:mb-3">Unlock effortless TikTok Shop growth</span>
-          <span class="block">with a world-class creator in your corner.</span>
+          <span class="sm:whitespace-nowrap sm:block sm:mb-3">Unlock effortless TikTok Shop<br class="sm:hidden"> growth</span>
+          <span class="sm:block">with a world-class creator<br class="sm:hidden"> in your corner.</span>
         </h1>
         <p class="text-base sm:text-lg text-[#C5C5D6] font-normal max-w-2xl mx-auto mt-3.5 leading-relaxed hero-sub-entry">
           Where emerging creators learn the game to sell on TikTok Shop. Discover step-by-step strategies to transform your everyday content into a thriving storefront.
@@ -394,17 +493,17 @@
           <div onclick="scrollToSection('the-freeze')" 
                onmouseenter="handleCardMouseEnter('card-video-1')" 
                onmouseleave="handleCardMouseLeave('card-video-1')"
-               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-zinc-700/80 shadow-lg transform -rotate-6 sm:-rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-zinc-900">
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform -rotate-6 sm:-rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-1" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+            <video id="card-video-1" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744659/Download.mp4" type="video/mp4">
               <source src="Assets/videos/day01.mp4" type="video/mp4">
             </video>
 
             <!-- Gradient Readability Tint (Clear middle so video is unobstructed) -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+            <div class="absolute inset-1 rounded-[13px] bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
 
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
@@ -418,17 +517,17 @@
           <div onclick="scrollToSection('the-freeze')" 
                onmouseenter="handleCardMouseEnter('card-video-2')" 
                onmouseleave="handleCardMouseLeave('card-video-2')"
-               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-blue-800/40 shadow-lg transform -rotate-2 sm:-rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-slate-900">
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform -rotate-2 sm:-rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-2" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+            <video id="card-video-2" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744663/Download_4.mp4" type="video/mp4">
               <source src="Assets/videos/day02.mp4" type="video/mp4">
             </video>
 
             <!-- Gradient Readability Tint -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+            <div class="absolute inset-1 rounded-[13px] bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
 
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
@@ -440,20 +539,17 @@
 
           <!-- Card 3 (CENTER / FEATURED HERO CARD: GAME TAPE SIGNATURE) -->
           <div onclick="openCheckoutModal()" 
-               class="experiment-card relative overflow-hidden flex-shrink-0 w-40 h-52 sm:w-48 sm:h-60 md:w-52 md:h-72 rounded-2xl p-4 sm:p-5 text-white border-2 border-tape-red shadow-2xl transform rotate-0 -translate-y-4 sm:-translate-y-5 scale-105 z-20 hover:scale-115 hover:-translate-y-7 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-zinc-950">
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-64 h-[22rem] sm:w-48 sm:h-60 md:w-52 md:h-72 rounded-2xl p-4 sm:p-5 text-white border border-white/40 shadow-2xl transform rotate-0 -translate-y-4 sm:-translate-y-5 scale-105 z-20 hover:scale-115 hover:-translate-y-7 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-white/15 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary - Continuous Spotlight Loop) -->
-            <video id="center-video" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+            <video id="center-video" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-90 group-hover:opacity-100 transition-all duration-500" 
                    autoplay loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744653/Download_3.mp4" type="video/mp4">
               <source src="Assets/videos/center.mp4" type="video/mp4">
             </video>
 
-            <!-- Spotlight Ring (Active Aura) -->
-            <div class="spotlight-ring absolute inset-0 border-2 border-tape-red rounded-2xl animate-pulse pointer-events-none z-15 shadow-[0_0_25px_rgba(211,8,5,0.6)]"></div>
-
             <!-- Gradient Readability Tint -->
-            <div class="absolute inset-0 bg-gradient-to-b from-black/75 via-transparent to-black/85 z-10 pointer-events-none transition-all duration-300"></div>
+            <div class="absolute inset-1 rounded-[13px] bg-gradient-to-b from-black/75 via-transparent to-black/85 z-10 pointer-events-none transition-all duration-300"></div>
 
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
@@ -462,7 +558,7 @@
               </div>
 
               <!-- Bottom CTA Button (Cleanly anchored at bottom, sentence case, no arrow, no price) -->
-              <div class="text-xs sm:text-sm font-heading font-medium text-center bg-tape-red hover:bg-tape-redhover text-white py-2 px-4 rounded-xl shadow-lg transition flex items-center justify-center">
+              <div class="text-sm font-heading font-medium text-center bg-tape-red hover:bg-tape-redhover text-white py-3 sm:py-2 px-4 rounded-xl shadow-lg transition flex items-center justify-center">
                 <span>Start today</span>
               </div>
             </div>
@@ -472,17 +568,17 @@
           <div onclick="scrollToSection('the-freeze')" 
                onmouseenter="handleCardMouseEnter('card-video-4')" 
                onmouseleave="handleCardMouseLeave('card-video-4')"
-               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-emerald-800/40 shadow-lg transform rotate-2 sm:rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-slate-900">
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform rotate-2 sm:rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-4" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+            <video id="card-video-4" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744681/Download_6.mp4" type="video/mp4">
               <source src="Assets/videos/day06.mp4" type="video/mp4">
             </video>
 
             <!-- Gradient Readability Tint -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+            <div class="absolute inset-1 rounded-[13px] bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
 
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
@@ -496,17 +592,17 @@
           <div onclick="scrollToSection('the-freeze')" 
                onmouseenter="handleCardMouseEnter('card-video-5')" 
                onmouseleave="handleCardMouseLeave('card-video-5')"
-               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-purple-800/40 shadow-lg transform rotate-6 sm:rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-slate-900">
+               class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform rotate-6 sm:rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-5" class="card-video absolute inset-0 w-full h-full object-cover z-0 opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
+            <video id="card-video-5" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744654/Download_5.mp4" type="video/mp4">
               <source src="Assets/videos/day07.mp4" type="video/mp4">
             </video>
 
             <!-- Gradient Readability Tint -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
+            <div class="absolute inset-1 rounded-[13px] bg-gradient-to-t from-black/80 via-transparent to-black/60 z-10 pointer-events-none transition-all duration-300"></div>
 
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
@@ -530,6 +626,186 @@
         </button>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ========================================================
+       SECTION 1.5: SOUND FAMILIAR (THE PHONE THAT NEVER POSTS)
+       Names the problem so the next section's headline lands as the answer
+       ======================================================== -->
+  <section id="sound-familiar" class="pt-16 sm:pt-24 pb-4 bg-white text-tape-black relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+
+      <!-- Heading -->
+      <div class="text-center mb-12 sm:mb-16 fade-in-scroll">
+        <h2 class="font-heading font-bold text-3xl sm:text-5xl tracking-tight text-gray-950">Does this look like your phone?</h2>
+      </div>
+
+      <!-- Phone + Floating Pain Pills
+           Phones: phone first, pills stacked underneath.
+           Desktop: pills absolutely placed around the phone at staggered heights; some overlap its edge (z-20) -->
+      <div class="relative grid gap-5 xl:flex xl:justify-center xl:max-w-5xl xl:mx-auto">
+
+        <!-- Left pills -->
+        <div class="hidden xl:flex flex-col items-center gap-5">
+          <div class="relative xl:absolute z-20 xl:top-[9%] xl:right-[calc(50%_+_118px)] glass-pill rounded-full pl-2.5 pr-6 py-2.5 flex gap-3 items-center w-fit max-w-md">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full glass-pill-icon flex items-center justify-center text-tape-black">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-[15px] text-gray-950 leading-snug [text-wrap:balance]">Saved 47 TikTok Shop videos. Posted zero.</h3>            </div>
+          </div>
+          <div class="relative xl:absolute z-20 xl:top-[41%] xl:right-[calc(50%_+_200px)] glass-pill rounded-full pl-2.5 pr-6 py-2.5 flex gap-3 items-center w-fit max-w-md">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full glass-pill-icon flex items-center justify-center text-tape-black">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 7.5Q12 5 20 7.5M9.5 6.3a2.5 2.5 0 015 0M6 10l.8 8a3 3 0 003 2.5h4.4a3 3 0 003-2.5L18 10M12 12.5v4"/></svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-[15px] text-gray-950 leading-snug sm:whitespace-nowrap">"Hey guys, so today I..." <em>Delete.</em></h3>            </div>
+          </div>
+          <div class="relative xl:absolute z-20 xl:top-[70%] xl:right-[calc(50%_+_175px)] glass-pill rounded-full pl-2.5 pr-6 py-2.5 flex gap-3 items-center w-fit max-w-md sm:whitespace-nowrap">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full glass-pill-icon flex items-center justify-center text-tape-black">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 4H8a4 4 0 00-4 4v2M4 14a4 4 0 004 4h2l2 2.5 2-2.5h2a4 4 0 004-4v-3"/><circle cx="18" cy="6" r="2.5"/></svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-[15px] text-gray-950 leading-snug sm:whitespace-nowrap">My background's not nice. My camera's bad.<br class="hidden sm:inline"> I don't know what to say.</h3>            </div>
+          </div>
+        </div>
+
+        <!-- Phone (built in code: profile with 0 posts, Saved tab full of TikTok Shop videos) -->
+        <div class="order-first xl:order-none flex justify-center mb-4 xl:mb-0 fade-in-scroll">
+          <div class="w-[272px] sm:w-[290px] rounded-[46px] bg-tape-black p-3">
+            <!-- TikTok light-mode profile (own profile view): #161823 text, #F1F1F2 buttons -->
+            <div class="relative rounded-[36px] bg-white overflow-hidden h-[560px] sm:h-[600px] text-[#161823] font-body">
+
+              <!-- Status bar + dynamic island -->
+              <div class="flex items-center justify-between px-6 pt-3 text-[11px] font-semibold">
+                <span>9:41</span>
+                <span class="w-20 h-5 rounded-full bg-[#161823]"></span>
+                <span class="flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M2 20h3v-4H2zm5 0h3v-8H7zm5 0h3V8h-3zm5 0h3V4h-3z"/></svg>
+                  <svg class="w-5 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 28 14"><rect x="1" y="1" width="22" height="12" rx="3"/><rect x="4" y="4" width="14" height="6" rx="1" fill="currentColor" stroke="none"/></svg>
+                </span>
+              </div>
+
+              <!-- Top bar: name + menu -->
+              <div class="flex items-center justify-between px-4 pt-3">
+                <span class="w-5"></span>
+                <span class="flex items-center gap-1 text-[13px] font-bold">Your Name
+                  <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6z"/></svg>
+                </span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+              </div>
+
+              <!-- Avatar with cyan + badge -->
+              <div class="text-center pt-3 px-4">
+                <div class="relative mx-auto w-[72px] h-[72px]">
+                  <div class="w-full h-full rounded-full bg-[#E3E3E5] flex items-center justify-center text-[#A6A7AB]">
+                    <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>
+                  </div>
+                  <span class="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#20D5EC] border-2 border-white flex items-center justify-center text-white text-[13px] font-bold leading-none">+</span>
+                </div>
+                <p class="mt-2 text-[13px] font-semibold">@you</p>
+
+                <!-- Stats (TikTok order: Following, Followers, Likes) -->
+                <div class="mt-2.5 flex items-center justify-center gap-5">
+                  <div><p class="text-[15px] font-bold leading-tight">312</p><p class="text-[10px] text-[#8A8B91]">Following</p></div>
+                  <div><p class="text-[15px] font-bold leading-tight">455</p><p class="text-[10px] text-[#8A8B91]">Followers</p></div>
+                  <div><p class="text-[15px] font-bold leading-tight">0</p><p class="text-[10px] text-[#8A8B91]">Likes</p></div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-3 flex justify-center gap-1.5">
+                  <span class="px-2.5 py-1.5 rounded-md bg-[#F1F1F2] text-[11px] font-semibold whitespace-nowrap">Edit profile</span>
+                  <span class="px-2.5 py-1.5 rounded-md bg-[#F1F1F2] text-[11px] font-semibold whitespace-nowrap">Share profile</span>
+                  <span class="px-2 py-1.5 rounded-md bg-[#F1F1F2] flex items-center">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 20c0-3.9 3.1-6 7-6s7 2.1 7 6M19 8v6M16 11h6"/></svg>
+                  </span>
+                </div>
+
+                <!-- Bio -->
+                <p class="mt-2.5 text-[11px] leading-snug">🛍️ TikTok Shop era loading...<br>📅 Starting Monday (for real this time)</p>
+              </div>
+
+              <!-- Tabs: Posts / Shop / Private / Saved (active) / Liked -->
+              <div class="mt-3 grid grid-cols-5 border-b border-[#E3E3E5] text-[#8A8B91]">
+                <span class="flex justify-center py-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M6 5v14M12 5v14M18 5v14"/></svg></span>
+                <span class="flex justify-center py-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8a3 3 0 016 0"/></svg></span>
+                <span class="flex justify-center py-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span>
+                <span class="flex justify-center py-2 text-[#161823] border-b-2 border-[#161823] -mb-px"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4z"/></svg></span>
+                <span class="flex justify-center py-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.5-7 10-7 10z"/></svg></span>
+              </div>
+
+              <!-- Saved grid: TikTok Shop product videos -->
+              <div class="grid grid-cols-3 gap-px">
+                <div class="relative aspect-[3/4] bg-[#FFD9C2] flex items-center justify-center text-3xl">🧴<span class="absolute top-1 left-1 px-1 h-3 rounded bg-[#FE2C55] text-white text-[7px] leading-3 font-bold">Shop</span><span class="absolute bottom-1 left-1.5 text-[9px] leading-3 font-semibold text-[#161823]">&#9655; 1.2M</span></div>
+                <div class="relative aspect-[3/4] bg-[#C9ECF2] flex items-center justify-center text-3xl">🎧<span class="absolute top-1 left-1 px-1 h-3 rounded bg-[#FE2C55] text-white text-[7px] leading-3 font-bold">Shop</span><span class="absolute bottom-1 left-1.5 text-[9px] leading-3 font-semibold text-[#161823]">&#9655; 840K</span></div>
+                <div class="relative aspect-[3/4] bg-[#E6D6F5] flex items-center justify-center text-3xl">💄<span class="absolute top-1 left-1 px-1 h-3 rounded bg-[#FE2C55] text-white text-[7px] leading-3 font-bold">Shop</span><span class="absolute bottom-1 left-1.5 text-[9px] leading-3 font-semibold text-[#161823]">&#9655; 2.3M</span></div>
+                <div class="relative aspect-[3/4] bg-[#D6F2DD] flex items-center justify-center text-3xl">👟<span class="absolute top-1 left-1 px-1 h-3 rounded bg-[#FE2C55] text-white text-[7px] leading-3 font-bold">Shop</span><span class="absolute bottom-1 left-1.5 text-[9px] leading-3 font-semibold text-[#161823]">&#9655; 96K</span></div>
+                <div class="relative aspect-[3/4] bg-[#FFF0B8] flex items-center justify-center text-3xl">🕯️<span class="absolute top-1 left-1 px-1 h-3 rounded bg-[#FE2C55] text-white text-[7px] leading-3 font-bold">Shop</span><span class="absolute bottom-1 left-1.5 text-[9px] leading-3 font-semibold text-[#161823]">&#9655; 410K</span></div>
+                <div class="relative aspect-[3/4] bg-[#FDDDE3] flex items-center justify-center text-3xl">📱<span class="absolute top-1 left-1 px-1 h-3 rounded bg-[#FE2C55] text-white text-[7px] leading-3 font-bold">Shop</span><span class="absolute bottom-1 left-1.5 text-[9px] leading-3 font-semibold text-[#161823]">&#9655; 3.1M</span></div>
+              </div>
+
+              <!-- Drafts toast -->
+              <div class="absolute bottom-[62px] left-1/2 -translate-x-1/2 flex items-center gap-1.5 rounded-full bg-[#161823] text-white pl-3 pr-2.5 py-1.5 text-[10px] font-semibold whitespace-nowrap">
+                <span>📝 3 drafts waiting</span>
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </div>
+
+              <!-- Bottom nav: Home, Friends, +, Inbox, Profile (active) -->
+              <div class="absolute bottom-0 inset-x-0 h-[54px] bg-white border-t border-[#E3E3E5] grid grid-cols-5 items-center text-[8px] text-[#8A8B91]">
+                <span class="flex flex-col items-center gap-0.5"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9h-5v-6h-6v6H4z"/></svg>Home</span>
+                <span class="flex flex-col items-center gap-0.5"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5M16 4.5a3.5 3.5 0 010 7M18 14.8c2.1.6 3.5 2.4 3.5 5.2"/></svg>Friends</span>
+                <span class="flex justify-center">
+                  <span class="relative w-9 h-6">
+                    <span class="absolute inset-y-0 left-0 right-1 rounded-md bg-[#25F4EE]"></span>
+                    <span class="absolute inset-y-0 left-1 right-0 rounded-md bg-[#FE2C55]"></span>
+                    <span class="absolute inset-y-0 left-0.5 right-0.5 rounded-md bg-[#161823] text-white flex items-center justify-center text-base font-bold leading-none">+</span>
+                  </span>
+                </span>
+                <span class="flex flex-col items-center gap-0.5"><svg class="w-[18px] h-[18px]" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>Inbox</span>
+                <span class="flex flex-col items-center gap-0.5 text-[#161823] font-semibold"><svg class="w-[18px] h-[18px]" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7z"/></svg>Profile</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right pills -->
+        <div class="hidden xl:flex flex-col items-center gap-5">
+          <div class="relative xl:absolute z-20 xl:top-[3%] xl:left-[calc(50%_+_185px)] glass-pill rounded-full pl-2.5 pr-6 py-2.5 flex gap-3 items-center w-fit max-w-md">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full glass-pill-icon flex items-center justify-center text-tape-black">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 6h6l2 2h10v11H3z"/></svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-[15px] text-gray-950 leading-snug [text-wrap:balance]">Three drafts, zero posts.</h3>            </div>
+          </div>
+          <div class="relative xl:absolute z-20 xl:top-[30%] xl:left-[calc(50%_+_115px)] glass-pill rounded-full pl-2.5 pr-6 py-2.5 flex gap-3 items-center w-fit max-w-md lg:whitespace-nowrap">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full glass-pill-icon flex items-center justify-center text-tape-black">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 8h18v11H3zM8 8V5h8v3"/></svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-[15px] text-gray-950 leading-snug [text-wrap:balance]">You're scared someone from work will see it.</h3>            </div>
+          </div>
+          <div class="relative xl:absolute z-20 xl:top-[55%] xl:left-[calc(50%_+_205px)] glass-pill rounded-full pl-2.5 pr-6 py-2.5 flex gap-3 items-center w-fit max-w-md">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full glass-pill-icon flex items-center justify-center text-tape-black">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 01-8 0zM8 6H5a3 3 0 003 4M16 6h3a3 3 0 01-3 4M12 13v4M9 20h6"/></svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-[15px] text-gray-950 leading-snug sm:whitespace-nowrap">Your For You page is full of TikTok Shop wins.<br class="hidden sm:inline"> None of them are yours.</h3>
+            </div>
+          </div>
+          <div class="relative xl:absolute z-20 xl:top-[80%] xl:left-[calc(50%_+_100px)] glass-pill rounded-full pl-2.5 pr-6 py-2.5 flex gap-3 items-center w-fit max-w-md lg:whitespace-nowrap">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full glass-pill-icon flex items-center justify-center text-tape-black">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-[15px] text-gray-950 leading-snug [text-wrap:balance]">You're waiting till you're "ready."</h3>            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Below xl: the pills run as two marquee rows under the phone (filled from the pills above by initPainMarquee) -->
+      <div id="pain-marquee" class="xl:hidden mt-6 -mx-4 sm:-mx-6"></div>
     </div>
   </section>
 
@@ -1287,6 +1563,49 @@
         }
       });
     });
+
+    // Mobile menu: open/close, and close after a link is tapped
+    function toggleMobileMenu(force) {
+      const menu = document.getElementById('mobile-menu');
+      const open = typeof force === 'boolean' ? force : menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !open);
+      document.getElementById('mobile-menu-icon-open').classList.toggle('hidden', open);
+      document.getElementById('mobile-menu-icon-close').classList.toggle('hidden', !open);
+      const toggle = document.getElementById('mobile-menu-toggle');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => toggleMobileMenu(false));
+    });
+
+    // Pain pills marquee: clone the desktop pills into two looping rows (each row holds its set twice for a seamless loop)
+    function initPainMarquee() {
+      const container = document.getElementById('pain-marquee');
+      if (!container) return;
+      const pills = [...document.querySelectorAll('#sound-familiar .glass-pill')];
+      const rows = [pills.filter((_, i) => i % 2 === 0), pills.filter((_, i) => i % 2 === 1)];
+      rows.forEach((rowPills, rowIndex) => {
+        const row = document.createElement('div');
+        row.className = 'pain-marquee-row' + (rowIndex === 1 ? ' is-reverse' : '');
+        const track = document.createElement('div');
+        track.className = 'pain-marquee-track';
+        [0, 1].forEach(copy => {
+          rowPills.forEach(pill => {
+            const clone = pill.cloneNode(true);
+            clone.className = 'glass-pill rounded-full pl-2 pr-5 py-2 flex gap-2.5 items-center flex-shrink-0';
+            clone.querySelectorAll('br').forEach(br => br.replaceWith(' '));
+            const heading = clone.querySelector('h3');
+            heading.className = 'font-heading font-bold text-sm text-gray-950 whitespace-nowrap';
+            if (copy === 1) clone.setAttribute('aria-hidden', 'true');
+            track.appendChild(clone);
+          });
+        });
+        row.appendChild(track);
+        container.appendChild(row);
+      });
+    }
+    initPainMarquee();
 
     // Smooth scrolling to anchor with fixed navbar offset
     function scrollToSection(id) {
