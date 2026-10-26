@@ -46,6 +46,14 @@
   </script>
 
   <style>
+    /* Waitlist panel slides in from the right: hidden off-screen until .is-open */
+    #waitlist-panel { visibility: hidden; transition: visibility 0s linear 0.35s; }
+    #waitlist-panel.is-open { visibility: visible; transition-delay: 0s; }
+    .wl-backdrop { opacity: 0; transition: opacity 0.3s ease; }
+    #waitlist-panel.is-open .wl-backdrop { opacity: 1; }
+    .wl-sheet { transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+    #waitlist-panel.is-open .wl-sheet { transform: translateX(0); }
+
     html {
       scroll-padding-top: 5.5rem;
     }
@@ -386,8 +394,8 @@
 
         <!-- CTA in Header (High contrast dark pill button) -->
         <div class="hidden md:flex items-center space-x-3">
-          <button onclick="openCheckoutModal()" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-tape-black hover:bg-black rounded-full transition-all shadow-md">
-            <span>Start today</span>
+          <button onclick="openStarter()" class="relative inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-tape-black hover:bg-black rounded-full transition-all shadow-md">
+            <span data-cta-closed="Join the waitlist">Start today</span>
           </button>
         </div>
 
@@ -405,7 +413,7 @@
         <a href="#vsl" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">Watch Breakdown</a>
         <a href="#offer-ladder" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">The 7 Days</a>
         <a href="#faq" class="block py-3.5 text-base font-medium text-gray-800">FAQ</a>
-        <button onclick="toggleMobileMenu(false); openCheckoutModal()" class="mt-3 w-full py-3.5 rounded-full bg-tape-black text-white text-sm font-semibold cursor-pointer">
+        <button onclick="toggleMobileMenu(false); openStarter()" data-cta-closed="Join the waitlist" class="mt-3 w-full py-3.5 rounded-full bg-tape-black text-white text-sm font-semibold cursor-pointer">
           Start today
         </button>
       </nav>
@@ -452,15 +460,10 @@
       <!-- Main Headline (Centered, sentence-case, Archivo) -->
       <div class="max-w-5xl mx-auto text-center mb-8 sm:mb-12">
         
-        <!-- Subtle [REC] Logo Eyebrow Badge -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-sm text-xs font-medium text-white mb-5 sm:mb-6 transition hover:border-white/30 hero-pill-entry">
-          <img src="Assets/REC(white&Red).png" alt="REC" class="h-3.5 sm:h-4 w-auto object-contain">
-          <span class="text-[#E2E2EC] text-xs font-medium">The 7-Day TikTok Shop Starter</span>
-        </div>
 
         <h1 class="font-heading font-bold text-2xl sm:text-4xl md:text-[2.65rem] lg:text-[3.25rem] tracking-tight text-white leading-[1.3] mb-4 sm:mb-6 hero-title-entry">
-          <span class="sm:whitespace-nowrap sm:block sm:mb-3">Unlock effortless TikTok Shop<br class="sm:hidden"> growth</span>
-          <span class="sm:block">with a world-class creator<br class="sm:hidden"> in your corner.</span>
+          <span class="sm:whitespace-nowrap sm:block sm:mb-3">Start selling on TikTok Shop</span>
+          <span class="sm:block">with a real seller<br class="sm:hidden"> in your corner.</span>
         </h1>
         <p class="text-base sm:text-lg text-[#C5C5D6] font-normal max-w-2xl mx-auto mt-3.5 leading-relaxed hero-sub-entry">
           Where emerging creators learn the game to sell on TikTok Shop. Discover step-by-step strategies to transform your everyday content into a thriving storefront.
@@ -496,7 +499,7 @@
                class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform -rotate-6 sm:-rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-1" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
+            <video id="card-video-1" poster="https://res.cloudinary.com/fje4fcoe/video/upload/so_0,w_400/v1792744659/Download.jpg" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744659/Download.mp4" type="video/mp4">
               <source src="Assets/videos/day01.mp4" type="video/mp4">
@@ -508,7 +511,7 @@
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
               <div class="flex items-center justify-start">
-                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Start</span>
+                <span class="text-[10px] font-heading font-medium px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Start</span>
               </div>
             </div>
           </div>
@@ -519,8 +522,8 @@
                onmouseleave="handleCardMouseLeave('card-video-2')"
                class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform -rotate-2 sm:-rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
-            <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-2" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
+            <!-- Video Layer (Hosted Cloudinary). poster = a still Cloudinary cuts from the clip, shown until the video loads -->
+            <video id="card-video-2" poster="https://res.cloudinary.com/fje4fcoe/video/upload/so_0,w_400/v1792744663/Download_4.jpg" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744663/Download_4.mp4" type="video/mp4">
               <source src="Assets/videos/day02.mp4" type="video/mp4">
@@ -532,13 +535,13 @@
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
               <div class="flex items-center justify-start">
-                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Practice</span>
+                <span class="text-[10px] font-heading font-medium px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Practice</span>
               </div>
             </div>
           </div>
 
           <!-- Card 3 (CENTER / FEATURED HERO CARD: GAME TAPE SIGNATURE) -->
-          <div onclick="openCheckoutModal()" 
+          <div onclick="scrollToSection('the-freeze')"
                class="experiment-card relative overflow-hidden flex-shrink-0 w-64 h-[22rem] sm:w-48 sm:h-60 md:w-52 md:h-72 rounded-2xl p-4 sm:p-5 text-white border border-white/40 shadow-2xl transform rotate-0 -translate-y-4 sm:-translate-y-5 scale-105 z-20 hover:scale-115 hover:-translate-y-7 hover:z-40 transition-all duration-300 cursor-pointer flex flex-col justify-between group bg-white/15 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary - Continuous Spotlight Loop) -->
@@ -554,12 +557,7 @@
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
               <div class="flex items-center justify-start">
-                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Game Tape</span>
-              </div>
-
-              <!-- Bottom CTA Button (Cleanly anchored at bottom, sentence case, no arrow, no price) -->
-              <div class="text-sm font-heading font-medium text-center bg-tape-red hover:bg-tape-redhover text-white py-3 sm:py-2 px-4 rounded-xl shadow-lg transition flex items-center justify-center">
-                <span>Start today</span>
+                <span class="text-[10px] font-heading font-medium px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Game Tape</span>
               </div>
             </div>
           </div>
@@ -571,7 +569,7 @@
                class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform rotate-2 sm:rotate-3 translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-4" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
+            <video id="card-video-4" poster="https://res.cloudinary.com/fje4fcoe/video/upload/so_0,w_400/v1792744681/Download_6.jpg" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744681/Download_6.mp4" type="video/mp4">
               <source src="Assets/videos/day06.mp4" type="video/mp4">
@@ -583,7 +581,7 @@
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
               <div class="flex items-center justify-start">
-                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Publish</span>
+                <span class="text-[10px] font-heading font-medium px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Publish</span>
               </div>
             </div>
           </div>
@@ -595,7 +593,7 @@
                class="experiment-card relative overflow-hidden flex-shrink-0 w-36 h-48 sm:w-44 sm:h-56 md:w-48 md:h-64 rounded-2xl p-3.5 sm:p-4 text-white border border-white/30 shadow-lg transform rotate-6 sm:rotate-8 -translate-y-1 hover:rotate-0 hover:scale-110 hover:-translate-y-4 hover:z-40 transition-all duration-300 cursor-pointer hidden sm:flex flex-col justify-between group bg-white/10 backdrop-blur-md">
             
             <!-- Video Layer (Hosted Cloudinary) -->
-            <video id="card-video-5" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
+            <video id="card-video-5" poster="https://res.cloudinary.com/fje4fcoe/video/upload/so_0,w_400/v1792744654/Download_5.jpg" class="card-video absolute inset-1 w-[calc(100%-8px)] h-[calc(100%-8px)] rounded-[13px] object-cover z-0 opacity-85 group-hover:opacity-100 transition-all duration-500" 
                    loop muted playsinline preload="auto">
               <source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744654/Download_5.mp4" type="video/mp4">
               <source src="Assets/videos/day07.mp4" type="video/mp4">
@@ -607,7 +605,7 @@
             <!-- Content -->
             <div class="relative z-20 h-full flex flex-col justify-between">
               <div class="flex items-center justify-start">
-                <span class="text-[10px] font-heading font-medium tracking-wide px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Scale</span>
+                <span class="text-[10px] font-heading font-medium px-2.5 py-0.5 bg-black/60 backdrop-blur-md border border-white/15 rounded-full text-white shadow-sm">Scale</span>
               </div>
             </div>
           </div>
@@ -618,8 +616,8 @@
 
       <!-- Action Buttons Below Cards (Inspo Pill Buttons) -->
       <div class="flex flex-wrap items-center justify-center gap-3 relative z-20 hero-actions-entry">
-        <button onclick="scrollToSection('offer-ladder')" class="px-8 py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-xs sm:text-sm font-semibold transition transform hover:-translate-y-0.5 shadow-md shadow-red-900/30">
-          View Courses
+        <button onclick="openStarter()" data-cta-closed="Join the waitlist" class="px-8 py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-xs sm:text-sm font-semibold transition transform hover:-translate-y-0.5">
+          Start today
         </button>
         <button onclick="scrollToSection('the-freeze')" class="px-8 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs sm:text-sm font-medium transition">
           See how it works
@@ -1032,7 +1030,7 @@
           Ready to get the game? Watch this!
         </h2>
         <p class="text-base sm:text-lg text-gray-400 font-normal max-w-2xl mx-auto leading-relaxed">
-          A 3-minute breakdown from Rickey on how 15 minutes a day gets you past camera fear and ready to earn on TikTok Shop.
+          A 3-minute breakdown from Rickey on how 15 minutes a day gets your first product videos filmed and posted on TikTok Shop.
         </p>
       </div>
 
@@ -1109,8 +1107,8 @@
 
         <!-- Direct CTA Under VSL -->
         <div class="mt-8 sm:mt-10 text-center fade-in-scroll stagger-delay-2">
-          <button onclick="openCheckoutModal()" class="px-8 sm:px-10 py-4 rounded-full bg-white hover:bg-gray-100 text-tape-black hover:text-black font-heading font-bold text-sm sm:text-base tracking-wide transition shadow-2xl hover:shadow-white/20 hover:-translate-y-0.5 transform">
-            <span>Start The First Seven Today</span>
+          <button onclick="openStarter()" class="px-8 sm:px-10 py-4 rounded-full bg-white hover:bg-gray-100 text-tape-black hover:text-black font-heading font-bold text-sm sm:text-base transition shadow-2xl hover:shadow-white/20 hover:-translate-y-0.5 transform">
+            <span data-cta-closed="Join the waitlist">Start The First Seven Today</span>
           </button>
         </div>
 
@@ -1143,7 +1141,7 @@
           <!-- "Still have questions?" Card (Ashlike Card) -->
           <div class="relative overflow-hidden rounded-2xl bg-[#E1E2E4] border border-[#D2D4D9] p-6 sm:p-7 shadow-xl shadow-black/20">
             <h3 class="font-heading text-lg sm:text-xl font-bold text-gray-950 mb-2">
-              Still have a questions?
+              Still have questions?
             </h3>
             <p class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-6">
               Can't find the answer to your question? Send us an email and we'll get back to you as soon as possible!
@@ -1188,7 +1186,7 @@
               </span>
             </button>
             <div id="faq-content-2" class="hidden px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-gray-700 leading-relaxed border-t border-black/10 pt-3.5">
-              Zero dollars on gear. Rickey explicitly teaches you how to position your phone on a stack of books, face a natural window, and talk directly into your phone’s built-in microphone in a quiet room. Over-produced videos actually convert worse on TikTok Shop than raw, authentic ones.
+              Zero dollars on gear. Rickey explicitly teaches you how to position your phone on a stack of books, face a natural window, and talk directly into your phone’s built-in microphone in a quiet room.
             </div>
           </div>
 
@@ -1226,23 +1224,6 @@
             </div>
           </div>
 
-          <!-- FAQ 5 -->
-          <div class="group bg-[#E1E2E4] hover:bg-[#EAEBED] border border-[#D2D4D9] rounded-2xl transition-all duration-300 shadow-xl shadow-black/15 overflow-hidden fade-in-scroll stagger-delay-5">
-            <button onclick="toggleFaq(5)" class="w-full p-5 sm:p-6 text-left flex items-start justify-between gap-4 transition cursor-pointer">
-              <span class="font-heading font-semibold text-sm sm:text-base text-gray-950 group-hover:text-tape-red transition-colors pt-0.5 leading-snug">
-                What is the 100% Doable Guarantee?
-              </span>
-              <span class="flex-shrink-0 w-8 h-8 rounded-lg bg-white/60 border border-black/5 flex items-center justify-center text-gray-700 group-hover:text-gray-950 group-hover:bg-white transition-all">
-                <svg id="faq-icon-5" class="w-4 h-4 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
-                </svg>
-              </span>
-            </button>
-            <div id="faq-content-5" class="hidden px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-gray-700 leading-relaxed border-t border-black/10 pt-3.5">
-              If you go through the 7 days, follow the 15-minute tasks on your phone, and don’t feel significantly more confident on camera with your first product videos filmed, let us know within 14 days and we will refund every penny of your $17. No questions asked.
-            </div>
-          </div>
-
         </div>
 
       </div>
@@ -1253,92 +1234,45 @@
   <!-- ========================================================
        THE FULL ECOSYSTEM / OFFER LADDER SECTION
        ======================================================== -->
-  <section id="offer-ladder" class="py-20 sm:py-28 relative bg-[#F7F8FA] text-tape-black -mt-px overflow-hidden">
-    <!-- Ambient Frosted Glass Backdrops & Optical Dot Matrix -->
-    <div class="absolute inset-0 bg-[radial-gradient(#CBD5E1_1.2px,transparent_1.2px)] [background-size:28px_28px] opacity-45 pointer-events-none"></div>
-    <!-- Soft luminous glow spheres behind the cards for visible refraction -->
-    <div class="absolute top-1/3 left-1/12 w-[28rem] h-[28rem] bg-slate-300/35 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-1/4 right-1/12 w-[32rem] h-[32rem] bg-slate-300/40 rounded-full blur-3xl pointer-events-none"></div>
+  <section id="offer-ladder" class="py-20 sm:py-28 bg-white text-tape-black -mt-px">
+    <!-- Product showcase: title, the big mockup of what you get, five things included, one button to the sales page -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-      
-      <div class="max-w-3xl mx-auto text-center mb-16 fade-in-scroll">
-        <h2 class="font-heading text-3xl sm:text-5xl tracking-tight text-gray-950 mb-4">
-          Everything you need to start.
-        </h2>
-        <p class="text-gray-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-          One price, seven days, and a plan for your first 1,000 followers.
-        </p>
+      <div class="max-w-3xl mx-auto text-center mb-10 sm:mb-12 fade-in-scroll">
+        <span class="inline-block bg-tape-red text-white text-xs font-heading font-bold px-4 py-1.5 rounded-full mb-5">Start here</span>
+        <h2 class="font-heading font-bold text-4xl sm:text-6xl tracking-tight text-gray-950 mb-4">The First Seven</h2>
+        <p class="text-gray-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">The 7-day TikTok Shop starter. Film your first seven product videos this week, 15 minutes a day.</p>
       </div>
 
-      <!-- Ladder Cards (Inspo 2 Split-Card Architecture - Frosted Glass Edition) -->
-      <div class="max-w-md mx-auto">
-        
-        <!-- Offer 1: Starter (CURRENT FOCUS - Featured Frosted Obsidian Split Card) -->
-        <div class="relative frosted-glass-dark rounded-3xl p-2 sm:p-2.5 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/20 fade-in-scroll stagger-delay-1">
-          <!-- Top Tag / Badge -->
-          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-tape-red text-white text-[10px] font-heading font-bold uppercase px-4 py-1 rounded-full tracking-wider shadow-sm z-20">
-            START HERE TODAY
-          </div>
+      <div class="bg-[#F4F4F1] rounded-[2rem] px-4 sm:px-12 pt-10 sm:pt-14 pb-8 sm:pb-12 fade-in-scroll stagger-delay-1">
+        <img src="Assets/first-seven-mockup.png" alt="The First Seven: daily video lessons on a laptop, a TikTok Shop video on a phone, and the 100 Product Hooks book" class="w-full max-w-4xl mx-auto h-auto" loading="lazy">
+      </div>
 
-          <!-- Top Half: Title, Subtitle, Price & Primary Button -->
-          <div class="p-5 sm:p-6 pb-6 sm:pb-7">
-            <h3 class="font-heading text-xl sm:text-2xl font-bold text-white mb-1.5">
-              The First Seven
-            </h3>
-            <p class="text-xs text-gray-400 font-medium mb-6 leading-relaxed min-h-[36px]">
-              The 7-Day TikTok Shop Starter.
-            </p>
+      <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-8 mt-12 sm:mt-14 fade-in-scroll stagger-delay-2">
+        <li class="flex flex-col items-center text-center gap-3">
+          <span class="w-12 h-12 rounded-full bg-tape-black text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg></span>
+          <span class="text-sm font-medium text-gray-800 leading-snug">7 short video lessons from Rickey</span>
+        </li>
+        <li class="flex flex-col items-center text-center gap-3">
+          <span class="w-12 h-12 rounded-full bg-tape-black text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M10 2h4"/></svg></span>
+          <span class="text-sm font-medium text-gray-800 leading-snug">7 tasks, 11 minutes each</span>
+        </li>
+        <li class="flex flex-col items-center text-center gap-3">
+          <span class="w-12 h-12 rounded-full bg-tape-black text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="text-sm font-medium text-gray-800 leading-snug">3 private drafts, then 4 public posts</span>
+        </li>
+        <li class="flex flex-col items-center text-center gap-3">
+          <span class="w-12 h-12 rounded-full bg-tape-black text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 13H8M16 17H8"/></svg></span>
+          <span class="text-sm font-medium text-gray-800 leading-snug">3 fill-in-the-blank video scripts</span>
+        </li>
+        <li class="flex flex-col items-center text-center gap-3 col-span-2 sm:col-span-1">
+          <span class="w-12 h-12 rounded-full bg-tape-black text-white flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15M9 3.236v15"/></svg></span>
+          <span class="text-sm font-medium text-gray-800 leading-snug">A roadmap to your first 1,000 followers</span>
+        </li>
+      </ul>
 
-            <!-- Big Price Display -->
-            <div class="flex items-baseline gap-1.5 mb-6">
-              <span class="font-heading text-4xl sm:text-5xl font-bold text-white tracking-tight">$17</span>
-              <span class="text-xs text-gray-400 font-medium">/ one-time starter</span>
-            </div>
-
-            <!-- CTA Button (Positioned directly under price, matching inspo) -->
-            <button onclick="openCheckoutModal()" class="w-full py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-xs sm:text-sm font-heading font-bold tracking-wide transition shadow-sm hover:shadow-md transform hover:scale-[1.02] cursor-pointer">
-              Get The First Seven
-            </button>
-          </div>
-
-          <!-- Bottom Inset Container: Feature Checklist (Frosted Light Inset) -->
-          <div class="frosted-glass-inset-light rounded-2xl p-5 sm:p-6 flex-1 flex flex-col justify-between">
-            <ul class="space-y-3.5 text-xs sm:text-sm text-gray-800 font-medium">
-              <li class="flex items-start gap-2.5">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
-                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </span>
-                <span>7 short daily video lessons from Rickey</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
-                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </span>
-                <span>7 actionable 11-minute tasks</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
-                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </span>
-                <span>3 private draft videos + 4 public posts</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
-                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </span>
-                <span>3 fill-in-the-blank video scripts</span>
-              </li>
-              <li class="flex items-start gap-2.5">
-                <span class="flex-shrink-0 w-4 h-4 rounded-full bg-tape-red/10 flex items-center justify-center mt-0.5">
-                  <svg class="w-2.5 h-2.5 text-tape-red font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
-                </span>
-                <span>The Roadmap to your first 1,000 followers</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
+      <div class="text-center mt-12 sm:mt-14 fade-in-scroll stagger-delay-3">
+        <button onclick="openStarter()" data-cta-closed="Join the waitlist" class="inline-block px-10 py-4 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-base font-heading font-bold transition">See The First Seven</button>
       </div>
 
     </div>
@@ -1349,8 +1283,6 @@
        ======================================================== -->
   <footer class="pt-20 sm:pt-28 pb-0 bg-tape-black text-white relative overflow-hidden -mt-px border-t border-white/10 fade-in-scroll">
     
-    <!-- Ambient Red Studio Glow behind Watermark -->
-    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[48rem] h-[22rem] bg-tape-red/10 rounded-full blur-[140px] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
@@ -1363,7 +1295,7 @@
             <img src="Assets/logo.png" alt="GAME TAPE" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]">
           </a>
           <p class="text-xs sm:text-sm text-gray-400 font-normal leading-relaxed max-w-sm">
-            Where emerging creators learn the game to sell on TikTok Shop. 15 minutes a day, zero camera fear, and real accountability with Rickey Eugene Brown.
+            Where new creators learn to sell on TikTok Shop. 15 minutes a day, no professional camera needed, with Rickey Eugene Brown.
           </p>
         </div>
 
@@ -1372,7 +1304,7 @@
           
           <!-- Column 1: Quick Links -->
           <div class="space-y-3">
-            <h4 class="font-heading font-semibold text-white tracking-wide text-xs uppercase text-gray-200">Quick Links</h4>
+            <h4 class="font-heading font-semibold text-white text-xs uppercase text-gray-200">Quick Links</h4>
             <ul class="space-y-2.5 text-gray-400">
               <li><a href="#hero" class="hover:text-white transition">Home</a></li>
               <li><a href="#the-freeze" class="hover:text-white transition">How It Works</a></li>
@@ -1384,15 +1316,15 @@
 
           <!-- Column 2: Programs -->
           <div class="space-y-3">
-            <h4 class="font-heading font-semibold text-white tracking-wide text-xs uppercase text-gray-200">Programs</h4>
+            <h4 class="font-heading font-semibold text-white text-xs uppercase text-gray-200">Programs</h4>
             <ul class="space-y-2.5 text-gray-400">
-              <li><button onclick="openCheckoutModal()" class="hover:text-white transition text-left cursor-pointer">The First Seven</button></li>
+              <li><button onclick="openStarter()" class="hover:text-white transition text-left cursor-pointer">The First Seven</button></li>
             </ul>
           </div>
 
           <!-- Column 3: Social & Connect -->
           <div class="space-y-3">
-            <h4 class="font-heading font-semibold text-white tracking-wide text-xs uppercase text-gray-200">Connect</h4>
+            <h4 class="font-heading font-semibold text-white text-xs uppercase text-gray-200">Connect</h4>
             <ul class="space-y-2.5 text-gray-400">
               <li><a href="https://tiktok.com/@rickeyeugenebrown" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">TikTok</a></li>
               <li><a href="https://instagram.com/rickeyeugenebrown" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Instagram</a></li>
@@ -1429,86 +1361,48 @@
 
   </footer>
 
-
   <!-- ========================================================
-       INTERACTIVE CHECKOUT MODAL (DRAWER)
-       Shows $17 Starter + $9 Order Bump (Dynamic calculation)
+       WAITLIST PANEL (doors closed): slides in from the right
        ======================================================== -->
-  <div id="checkout-modal" data-lenis-prevent class="fixed inset-0 z-50 hidden bg-black/45 overflow-y-auto">
-    <div class="min-h-full flex items-start md:items-center justify-center p-4 sm:p-6">
-      <div class="bg-white/15 backdrop-blur-2xl backdrop-saturate-150 border border-white/30 text-tape-black w-full max-w-3xl rounded-3xl p-2 sm:p-2.5 relative my-4">
+  <div id="waitlist-panel" data-lenis-prevent class="fixed inset-0 z-[60]" aria-hidden="true">
+    <div class="wl-backdrop absolute inset-0 bg-black/60" onclick="closeWaitlist()"></div>
+    <aside class="wl-sheet absolute top-0 right-0 h-full w-full sm:max-w-md bg-white flex flex-col" role="dialog" aria-label="Join the waitlist">
+      <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
+        <img src="Assets/logo-dark.png" alt="GAME TAPE" class="h-8 w-auto object-contain">
+        <button onclick="closeWaitlist()" aria-label="Close" class="w-9 h-9 rounded-full hover:bg-gray-100 text-gray-950 flex items-center justify-center"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
 
-        <!-- Close Button -->
-        <button onclick="closeCheckoutModal()" aria-label="Close" class="absolute top-4 right-4 sm:top-5 sm:right-5 w-9 h-9 rounded-full bg-white/20 border border-white/40 text-white hover:bg-white/30 flex items-center justify-center z-10">✕</button>
+      <div class="flex-1 overflow-y-auto px-5 sm:px-6 py-8">
+        <div id="wl-form">
+          <span class="inline-block bg-tape-red text-white text-xs font-heading font-bold px-3.5 py-1 rounded-full mb-4">Early access</span>
+          <h3 class="font-heading font-bold text-3xl tracking-tight text-gray-950 mb-3">Get in before doors open.</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">The First Seven opens soon. Join the list and you'll hear first, with early access before everyone else.</p>
 
-        <!-- Checkout Header -->
-        <div class="px-5 sm:px-7 pr-14 sm:pr-16 pt-5 sm:pt-6 pb-5 flex items-center gap-3">
-          <img src="Assets/logo.png" alt="GAME TAPE" class="h-7 sm:h-8 w-auto object-contain">
-          <span class="w-px h-6 bg-white/40"></span>
-          <h3 class="font-heading font-bold text-base sm:text-xl text-white whitespace-nowrap">Secure checkout</h3>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-2 sm:gap-2.5">
-
-          <!-- Left: order -->
-          <div class="bg-white/85 backdrop-blur-xl border border-white/60 rounded-2xl p-5 sm:p-6 flex flex-col">
-            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Your order</p>
-            <div class="flex items-start justify-between gap-4 pb-4 mb-4 border-b border-gray-200">
-              <div>
-                <span class="font-heading font-bold text-base sm:text-lg text-gray-950 block">The First Seven</span>
-                <span class="text-sm text-gray-500">The 7-Day TikTok Shop Starter</span>
-              </div>
-              <span class="font-heading font-bold text-lg text-gray-950">$17</span>
-            </div>
-
-            <!-- ORDER BUMP BOX (100 Product Hooks $9 tick box) -->
-            <label for="order-bump-checkbox" class="block bg-[#F7F8FA] border border-gray-200 hover:border-gray-400 transition rounded-xl p-4 cursor-pointer">
-              <span class="flex items-start gap-3">
-                <input type="checkbox" id="order-bump-checkbox" onchange="updateCheckoutTotal()" class="mt-1 w-5 h-5 accent-[#D30805] cursor-pointer flex-shrink-0">
-                <span class="text-sm leading-relaxed">
-                  <span class="font-heading font-bold text-gray-950 block mb-1">Add 100 Product Hooks for $9</span>
-                  <span class="text-gray-600 block">Never stare at your lens wondering how to start. 100 fill-in-the-blank opening lines across 10 product types, so people stop scrolling in the first 2 seconds.</span>
-                </span>
-              </span>
-            </label>
-
-            <div class="mt-auto pt-5 flex justify-between items-baseline">
-              <span class="text-sm font-medium text-gray-500">Total due today</span>
-              <span class="font-heading font-bold text-3xl text-gray-950" id="checkout-total-display">$17.00</span>
-            </div>
+          <div class="bg-[#F4F4F1] rounded-2xl p-4 mb-6">
+            <img src="Assets/first-seven-mockup.png" alt="The First Seven" class="w-full h-auto">
           </div>
 
-          <!-- Right: details (simulated customer form) -->
-          <form onsubmit="handleCheckoutSubmit(event)" class="bg-white/85 backdrop-blur-xl border border-white/60 rounded-2xl p-5 sm:p-6 space-y-4">
-            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Your details</p>
-            <div>
-              <label for="cust-name" class="block text-sm font-medium text-gray-800 mb-1.5">Full name</label>
-              <input type="text" id="cust-name" placeholder="e.g. Ama Johnson" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-950 placeholder-gray-400 focus:outline-none focus:border-gray-950">
+          <form onsubmit="handleWaitlistSubmit(event)" class="space-y-3">
+            <div class="grid grid-cols-2 gap-3">
+              <input type="text" id="wl-first-name" required autocomplete="given-name" placeholder="First name" class="w-full border border-gray-300 rounded-xl px-4 py-3.5 text-sm text-gray-950 placeholder-gray-400 focus:outline-none focus:border-gray-950">
+              <input type="text" id="wl-last-name" required autocomplete="family-name" placeholder="Last name" class="w-full border border-gray-300 rounded-xl px-4 py-3.5 text-sm text-gray-950 placeholder-gray-400 focus:outline-none focus:border-gray-950">
             </div>
-
-            <div>
-              <label for="cust-email" class="block text-sm font-medium text-gray-800 mb-1.5">Email <span class="text-gray-500 font-normal">(where Day 1 lands)</span></label>
-              <input type="email" id="cust-email" placeholder="you@example.com" class="w-full bg-white border border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-950 placeholder-gray-400 focus:outline-none focus:border-gray-950">
-            </div>
-
-            <!-- Simulated Card Field -->
-            <div>
-              <span class="block text-sm font-medium text-gray-800 mb-1.5">Card</span>
-              <div class="bg-[#F7F8FA] border border-gray-300 rounded-xl px-4 py-3 text-sm flex items-center justify-between text-gray-500">
-                <span>•••• •••• •••• 4242</span>
-                <span class="text-xs">Demo card</span>
-              </div>
-            </div>
-
-            <button type="submit" class="w-full py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover font-heading font-bold text-sm sm:text-base text-white transition">
-              Complete purchase
-            </button>
+            <input type="email" id="wl-email" required autocomplete="email" placeholder="Email" class="w-full border border-gray-300 rounded-xl px-4 py-3.5 text-sm text-gray-950 placeholder-gray-400 focus:outline-none focus:border-gray-950">
+            <button type="submit" class="w-full py-4 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-base font-heading font-bold transition">Get early access</button>
+            <p class="text-xs text-gray-500 text-center">Built for the US TikTok Shop, for people 18 or older. No spam, unsubscribe any time.</p>
           </form>
+        </div>
 
+        <div id="wl-done" class="hidden text-center pt-10">
+          <span class="mx-auto w-14 h-14 rounded-full bg-tape-red text-white flex items-center justify-center mb-5"><svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <h3 class="font-heading font-bold text-3xl tracking-tight text-gray-950 mb-3">You're on the list<span id="wl-done-name"></span>.</h3>
+          <p class="text-gray-600 leading-relaxed mb-8">We'll email you before doors open, so you can get in early.</p>
+          <button onclick="closeWaitlist()" class="px-8 py-3.5 rounded-full bg-tape-black hover:bg-black text-white text-sm font-semibold transition">Back to the page</button>
         </div>
       </div>
-    </div>
+    </aside>
   </div>
+
 
 
   <!-- ========================================================
@@ -1668,37 +1562,53 @@
       }
     }
 
-    // Modal Controllers
-    function openCheckoutModal() {
-      document.getElementById('checkout-modal').classList.remove('hidden');
+    // Doors switch: false = waitlist mode (every main button opens the waitlist panel, the sales page stays unlinked).
+    // On launch day set DOORS_OPEN = true: the buttons go back to their open labels and send people to the sales page.
+    const DOORS_OPEN = false;
+    function openStarter() {
+      if (DOORS_OPEN) { window.location.href = 'offer-first-seven.html'; } else { openWaitlist(); }
+    }
+
+    // While doors are closed, swap each main button's label for its data-cta-closed text
+    if (!DOORS_OPEN) {
+      document.querySelectorAll('[data-cta-closed]').forEach(el => { el.textContent = el.dataset.ctaClosed; });
+    }
+
+    // Waitlist panel: slides in from the right, like the cart on the sales page
+    function openWaitlist() {
+      const panel = document.getElementById('waitlist-panel');
+      panel.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false');
       if (lenis) lenis.stop();
+      document.body.style.overflow = 'hidden';
     }
 
-    function closeCheckoutModal() {
-      document.getElementById('checkout-modal').classList.add('hidden');
+    function closeWaitlist() {
+      const panel = document.getElementById('waitlist-panel');
+      panel.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
       if (lenis) lenis.start();
+      document.body.style.overflow = '';
     }
 
-    // Dynamic Price Calculation for Order Bump ($17 vs $26)
-    function updateCheckoutTotal() {
-      const bumpChecked = document.getElementById('order-bump-checkbox').checked;
-      const totalDisplay = document.getElementById('checkout-total-display');
-      if (bumpChecked) {
-        totalDisplay.innerText = '$26.00';
-      } else {
-        totalDisplay.innerText = '$17.00';
-      }
-    }
-
-    // Handle Simulated Checkout: start a fresh order, then go to the first after-checkout offer
-    function handleCheckoutSubmit(e) {
+    // Prototype: keep the sign-up in this browser and show the confirmation.
+    // Live version: send it to the email list (platform not chosen yet).
+    function handleWaitlistSubmit(e) {
       e.preventDefault();
-      try { localStorage.removeItem(ORDER_KEY); } catch (err) {}
-      goTo('offer-shop-ready.html', {
-        name: document.getElementById('cust-name').value,
-        hooks: document.getElementById('order-bump-checkbox').checked
-      });
+      const first = document.getElementById('wl-first-name').value.trim();
+      try {
+        localStorage.setItem('gt_waitlist', JSON.stringify({
+          firstName: first,
+          lastName: document.getElementById('wl-last-name').value.trim(),
+          email: document.getElementById('wl-email').value.trim()
+        }));
+      } catch (err) {}
+      document.getElementById('wl-done-name').textContent = first ? ', ' + first : '';
+      document.getElementById('wl-form').classList.add('hidden');
+      document.getElementById('wl-done').classList.remove('hidden');
     }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWaitlist(); });
 
     // FAQ Accordion Toggle
     function toggleFaq(index) {

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Hidden until doors open: reachable by direct link only, kept out of search results -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>GAME TAPE | The First Seven</title>
+  <meta name="description" content="Learn how TikTok Shop works and film your first seven product videos this week, on the phone you already have. 7 days, 15 minutes a day, with Rickey Eugene Brown.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            tape: { black: '#101017', dark: '#0B0B10', card: '#161623', border: '#27273A', red: '#D30805', redhover: '#B50604', muted: '#9E9EB2', cream: '#F4F4F1' }
+          },
+          fontFamily: { heading: ['"Archivo"', 'sans-serif'], body: ['Poppins', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Checkout slides in from the right: hidden off-screen until .is-open */
+    #checkout-modal { visibility: hidden; transition: visibility 0s linear 0.35s; }
+    #checkout-modal.is-open { visibility: visible; transition-delay: 0s; }
+    .co-backdrop { opacity: 0; transition: opacity 0.3s ease; }
+    #checkout-modal.is-open .co-backdrop { opacity: 1; }
+    .co-panel { transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+    #checkout-modal.is-open .co-panel { transform: translateX(0); }
+    /* Smooth jumps from the nav, stopping below the fixed header */
+    html { scroll-behavior: smooth; scroll-padding-top: 104px; }
+    body { font-family: 'Poppins', sans-serif; }
+    .font-heading { font-family: 'Archivo', sans-serif; letter-spacing: -0.01em; }
+    .eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0; text-transform: uppercase; }
+    .bracket-tl { border-top: 2px solid #D30805; border-left: 2px solid #D30805; }
+    .bracket-tr { border-top: 2px solid #D30805; border-right: 2px solid #D30805; }
+    .bracket-bl { border-bottom: 2px solid #D30805; border-left: 2px solid #D30805; }
+    .bracket-br { border-bottom: 2px solid #D30805; border-right: 2px solid #D30805; }
+    .rec-dot { display: inline-block; width: 8px; height: 8px; background-color: #D30805; border-radius: 50%; animation: recPulse 1.2s infinite; }
+    @keyframes recPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @media (prefers-reduced-motion: reduce) { .rec-dot { animation: none; } }
+    /* Hero background, same as the landing page: dark cinema gradient, white bars rising at the edges, fade into the white section below */
+    .hero-dark-gradient { background: radial-gradient(ellipse 85% 75% at 50% 35%, #181828 0%, #0E0E18 65%, #08080E 100%); }
+    .hero-bars { display: flex; align-items: flex-end; }
+    .hero-bar { flex: 1; height: var(--h); opacity: var(--o); background: linear-gradient(to top, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%); }
+    .hero-bottom-fade { background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 15%, rgba(255,255,255,0.07) 30%, rgba(255,255,255,0.16) 45%, rgba(255,255,255,0.3) 60%, rgba(255,255,255,0.5) 74%, rgba(255,255,255,0.75) 87%, #FFFFFF 100%); }
+    /* Frosted glass on dark: see-through white fill, blur, thin light edge and a highlight along the top */
+    .glass-dark { background: rgba(255, 255, 255, 0.06); backdrop-filter: blur(20px) saturate(160%); -webkit-backdrop-filter: blur(20px) saturate(160%); border: 1px solid rgba(255, 255, 255, 0.14); box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.14); }
+    /* Scrolling reels: each track holds its cards twice and moves by half its height, so the loop has no seam */
+    .reel-track { display: flex; flex-direction: column; gap: 16px; }
+    /* Cards fade out at the top and bottom edges (a mask, so there's no visible edge line) */
+    .reel-wrap { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 78%, transparent 100%); }
+    @media (min-width: 640px) { .reel-wrap { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%); } }
+    .reel-card { aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; background: #161623; flex-shrink: 0; }
+    .reel-card video, .reel-card img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .reel-up { animation: reelUp 40s linear infinite; }
+    .reel-down { animation: reelDown 40s linear infinite; }
+    .reel-wrap:hover .reel-track { animation-play-state: paused; }
+    @keyframes reelUp { from { transform: translateY(0); } to { transform: translateY(calc(-50% - 8px)); } }
+    @keyframes reelDown { from { transform: translateY(calc(-50% - 8px)); } to { transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { .reel-up, .reel-down { animation: none; } }
+    /* "Who it's for" cards styled as TikTok comments: the buyer comments, Rickey replies */
+    .cmt { border-radius: 20px; padding: 20px; }
+    .cmt-you { width: 36px; height: 36px; border-radius: 9999px; background: #27273A; color: #9E9EB2; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cmt-rk { width: 28px; height: 28px; border-radius: 9999px; background: #D30805; color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cmt-bubble { display: inline-block; margin-top: 6px; background: #fff; color: #101017; font-size: 14px; line-height: 1.45; padding: 8px 14px; border-radius: 16px 16px 16px 4px; }
+    /* "Seven days from now": two phone frames holding screenshots of the buyer's TikTok profile, today and on Day 7 */
+    .phone { width: 270px; aspect-ratio: 853 / 1844; border: 9px solid #101017; border-radius: 40px; background: #fff; overflow: hidden; position: relative; margin: 0 auto; box-shadow: 0 30px 60px -24px rgba(16, 16, 23, 0.35); }
+    .phone-notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 72px; height: 20px; background: #101017; border-radius: 9999px; }
+    .ico { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+  </style>
+</head>
+
+<body class="bg-white text-tape-black antialiased selection:bg-tape-red selection:text-white pb-20 md:pb-0">
+
+  <!-- Same floating pill nav as the landing page; links jump to this page's sections -->
+  <!-- Mobile: full-width bar with a menu icon. md and up: floating pill -->
+  <header class="fixed top-0 md:top-4 left-0 right-0 z-50 pointer-events-none">
+    <div class="max-w-6xl mx-auto md:px-6">
+      <div class="bg-white md:bg-white/95 md:backdrop-blur-md border-b md:border border-gray-200 md:border-gray-200/90 shadow-md md:shadow-xl shadow-black/10 md:rounded-full px-4 md:px-7 py-3 md:py-3.5 flex items-center justify-between pointer-events-auto">
+        <a href="index.html" class="flex items-center group">
+          <img src="Assets/logo-dark.png" alt="GAME TAPE" class="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.03]">
+        </a>
+        <nav class="hidden md:flex items-center space-x-6 lg:space-x-8 text-sm font-medium text-gray-700">
+          <a href="#buy" class="hover:text-black transition">What You Get</a>
+          <a href="#rickey" class="hover:text-black transition">About Rickey</a>
+          <a href="#seven-days" class="hover:text-black transition">The 7 Days</a>
+          <a href="#faq" class="hover:text-black transition">FAQ</a>
+        </nav>
+        <div class="hidden md:flex items-center">
+          <button onclick="goToOffer()" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-tape-black hover:bg-black rounded-full transition shadow-md">Get The First Seven</button>
+        </div>
+        <button id="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden inline-flex items-center justify-center w-10 h-10 -mr-2 text-tape-black cursor-pointer">
+          <svg id="mobile-menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2.25" d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg id="mobile-menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2.25" d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <nav id="mobile-menu" class="md:hidden hidden bg-white border-b border-gray-200 shadow-md pointer-events-auto px-4 pb-5">
+        <a href="#buy" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">What You Get</a>
+        <a href="#rickey" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">About Rickey</a>
+        <a href="#seven-days" class="block py-3.5 border-b border-gray-100 text-base font-medium text-gray-800">The 7 Days</a>
+        <a href="#faq" class="block py-3.5 text-base font-medium text-gray-800">FAQ</a>
+        <button onclick="toggleMobileMenu(false); goToOffer()" class="mt-3 w-full py-3.5 rounded-full bg-tape-black text-white text-sm font-semibold cursor-pointer">Get The First Seven</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       1. HERO: label, headline, three ticks, one button
+       ======================================================== -->
+  <section class="relative bg-[#0E0E18] overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none select-none z-0">
+      <div class="absolute inset-0 hero-dark-gradient"></div>
+      <div class="hero-bars absolute inset-0">
+        <div class="hero-bar" style="--h:100%;--o:1"></div>
+        <div class="hero-bar" style="--h:90%;--o:0.79"></div>
+        <div class="hero-bar" style="--h:80%;--o:0.6"></div>
+        <div class="hero-bar" style="--h:70%;--o:0.43"></div>
+        <div class="hero-bar" style="--h:60%;--o:0.28"></div>
+        <div class="hero-bar" style="--h:50%;--o:0.15"></div>
+        <div class="hero-bar" style="--h:40%;--o:0.05"></div>
+        <div class="hero-bar" style="--h:30%;--o:0"></div>
+        <div class="hero-bar" style="--h:40%;--o:0.05"></div>
+        <div class="hero-bar" style="--h:50%;--o:0.15"></div>
+        <div class="hero-bar" style="--h:60%;--o:0.28"></div>
+        <div class="hero-bar" style="--h:70%;--o:0.43"></div>
+        <div class="hero-bar" style="--h:80%;--o:0.6"></div>
+        <div class="hero-bar" style="--h:90%;--o:0.79"></div>
+        <div class="hero-bar" style="--h:100%;--o:1"></div>
+      </div>
+      <div class="hero-bottom-fade absolute inset-x-0 bottom-0 h-[45%]"></div>
+      <div class="hidden sm:block absolute top-8 left-6 sm:left-10 w-6 h-6 border-t-2 border-l-2 border-white/20"></div>
+      <div class="hidden sm:block absolute top-8 right-6 sm:right-10 w-6 h-6 border-t-2 border-r-2 border-white/20"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-36 sm:pb-48 grid lg:grid-cols-12 gap-10 lg:gap-6 items-center">
+
+      <div class="lg:col-span-6">
+        <!-- Glass pill, same as the landing page -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 shadow-sm mb-5">
+          <img src="Assets/REC(white&Red).png" alt="REC" class="h-3.5 sm:h-4 w-auto object-contain">
+          <span class="text-[#E2E2EC] text-xs font-medium">The 7-Day TikTok Shop Starter</span>
+        </div>
+        <h1 class="font-heading font-semibold text-4xl sm:text-5xl lg:text-[2.6rem] xl:text-[2.85rem] tracking-tight text-white leading-[1.1] mb-4">
+          <span class="lg:whitespace-nowrap">Film your first seven TikTok</span><br class="hidden lg:block">
+          <span class="lg:whitespace-nowrap">Shop videos this week.</span>
+        </h1>
+        <p class="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">With Rickey Eugene Brown.</p>
+
+        <ul class="space-y-2.5 mb-8 text-sm sm:text-base text-white">
+          <li class="flex items-center gap-3"><svg class="ico text-tape-red" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Learn how TikTok Shop really works, step by step</li>
+          <li class="flex items-center gap-3"><svg class="ico text-tape-red" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Film 7 product videos in 7 days</li>
+          <li class="flex items-center gap-3"><svg class="ico text-tape-red" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>15 minutes a day, no gear needed</li>
+        </ul>
+
+        <button onclick="goToOffer()" class="px-10 py-4 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-base font-heading font-bold whitespace-nowrap transition">
+          Get The First Seven
+        </button>
+      </div>
+
+      <div class="lg:col-span-6 relative">
+        <img src="Assets/first-seven-mockup.png" alt="The First Seven: daily lesson slides on a laptop, a product video on a phone, and the 100 Product Hooks book" class="w-full lg:w-[124%] lg:max-w-none lg:-ml-[16%] h-auto">
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       2. BUY BOX: the offer right after the hero
+       ======================================================== -->
+  <section id="buy" class="pt-20 sm:pt-28 pb-4 sm:pb-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl tracking-tight text-gray-950 mb-2 text-center">Everything you need to start.</h2>
+      <p class="text-gray-600 text-sm sm:text-base mb-12 sm:mb-14 text-center">Seven days, one short lesson a day, and a plan for the road to 1,000 followers.</p>
+
+      <div id="offer" class="relative grid md:grid-cols-2 gap-6 md:gap-10 md:items-start bg-tape-black text-white rounded-3xl p-3 sm:p-4 md:p-6">
+        <!-- A real lesson, so buyers see what they get -->
+        <div>
+          <div class="relative glass-dark rounded-2xl p-4 sm:p-6 flex flex-col justify-center">
+            <span class="absolute top-4 left-4 z-10 bg-tape-red text-white eyebrow px-2.5 py-1 rounded-full">Day 1 lesson</span>
+            <img src="Assets/day1-slide.png" alt="Day 1 lesson slide: How a sale happens" class="w-full h-auto rounded-xl mt-8">
+            <p class="text-xs text-tape-muted mt-4 text-center">Every lesson is a short video from Rickey, one a day by email.</p>
+          </div>
+          <p class="text-sm text-gray-300 mt-4 text-center">One-time payment · Day 1 lands the next morning</p>
+        </div>
+
+        <!-- Price and the order, item by item -->
+        <div class="py-2">
+          <span class="inline-block bg-white text-tape-black eyebrow px-2.5 py-1 rounded-full mb-3">The starter</span>
+          <h3 class="font-heading font-bold text-2xl sm:text-3xl text-white">The First Seven</h3>
+          <div class="flex items-baseline gap-2 mt-2">
+            <span class="font-heading font-bold text-4xl text-white">$17</span>
+            <span class="text-sm text-tape-muted">one-time</span>
+          </div>
+          <p class="eyebrow text-tape-muted mt-1 mb-5">15 minutes a day</p>
+
+          <ul class="space-y-2.5 mb-6 text-sm text-gray-200">
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>How a sale happens, and when you get paid</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>What to film, and how to start each video</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>The formula behind Rickey's most-watched videos</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>A plan for the road to 1,000 followers</li>
+          </ul>
+
+          <div class="glass-dark rounded-2xl p-4 sm:p-5 mb-5 text-sm text-gray-200">
+            <p class="font-semibold text-white mb-3">Your order</p>
+            <div class="flex justify-between py-1.5 border-b border-white/10"><span>7 daily video lessons from Rickey</span><span class="font-semibold text-white">$17</span></div>
+            <div class="flex justify-between py-1.5 border-b border-white/10"><span>7 tasks of about 11 minutes</span><span class="eyebrow text-tape-muted self-center">Included</span></div>
+            <div class="flex justify-between py-1.5 border-b border-white/10"><span>3 fill-in-the-blank video scripts</span><span class="eyebrow text-tape-muted self-center">Included</span></div>
+            <div class="flex justify-between py-1.5"><span>Your plan and follower tracker</span><span class="eyebrow text-tape-muted self-center">Included</span></div>
+          </div>
+
+          <button id="offer-button" onclick="openCheckoutModal()" class="w-full py-4 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-base font-heading font-bold transition">Get The First Seven · $17</button>
+          <p class="eyebrow text-tape-muted mt-3 text-center">Built for the US TikTok Shop · 18 or older</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       3. TRUST STRIP
+       ======================================================== -->
+  <!-- Editorial stat row: a big figure, then a short line under it; thin dividers between -->
+  <section class="bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 grid grid-cols-3 divide-x divide-gray-200 text-center">
+      <div class="py-1 sm:py-2 px-2 sm:px-8">
+        <p class="font-heading font-bold text-3xl sm:text-6xl text-gray-950 leading-none">15<span class="text-sm sm:text-3xl text-gray-400 ml-0.5 sm:ml-1">min</span></p>
+        <p class="font-semibold text-gray-950 text-xs sm:text-base leading-snug mt-2 sm:mt-4">A day, that's it</p>
+        <p class="hidden sm:block text-sm text-gray-500 mt-1">A 4-minute video and an 11-minute task.</p>
+      </div>
+      <div class="py-1 sm:py-2 px-2 sm:px-8">
+        <p class="font-heading font-bold text-3xl sm:text-6xl text-gray-950 leading-none">1<span class="text-sm sm:text-3xl text-gray-400 ml-0.5 sm:ml-1">phone</span></p>
+        <p class="font-semibold text-gray-950 text-xs sm:text-base leading-snug mt-2 sm:mt-4">The one you already have</p>
+        <p class="hidden sm:block text-sm text-gray-500 mt-1">No professional camera, lights or mic.</p>
+      </div>
+      <div class="py-1 sm:py-2 px-2 sm:px-8">
+        <p class="font-heading font-bold text-3xl sm:text-6xl text-gray-950 leading-none">US</p>
+        <p class="font-semibold text-gray-950 text-xs sm:text-base leading-snug mt-2 sm:mt-4">Built for the US shop</p>
+        <p class="hidden sm:block text-sm text-gray-500 mt-1">For sellers in the US, 18 or older.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       5. RICKEY, IN HIS OWN WORDS
+       ======================================================== -->
+  <!-- MasterClass-style: quote on the left, two columns of Rickey's clips scrolling in opposite directions on the right -->
+  <section id="rickey" class="bg-white text-gray-950 overflow-hidden pt-20 sm:pt-32 pb-16 sm:pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+      <div class="py-14 lg:py-0">
+        <h2 class="font-heading font-bold text-3xl sm:text-5xl tracking-tight leading-[1.08] mb-5">Learn it from someone who actually sells.</h2>
+        <p class="text-gray-600 text-base sm:text-lg leading-relaxed mb-6">Rickey sells on TikTok Shop every day, with just his phone, from wherever he is. In seven days he shows you exactly how he does it. From how a sale happens, what he films, and how he starts every video so people keep watching.</p>
+        <p class="font-semibold text-lg">Rickey Eugene Brown</p>
+        <p class="text-sm text-gray-600 mt-1">Actor, filmmaker, and content creator.</p>
+        <button onclick="goToOffer()" class="mt-8 px-8 py-3.5 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-sm sm:text-base font-heading font-bold transition">Learn from Rickey</button>
+      </div>
+
+      <div class="reel-wrap relative h-[520px] sm:h-[620px] grid grid-cols-2 gap-3 sm:gap-4">
+        <div class="reel-col overflow-hidden"><div class="reel-track reel-up">
+          <div class="reel-card"><video autoplay loop muted playsinline preload="metadata"><source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744659/Download.mp4" type="video/mp4"></video></div>
+          <!-- TODO: replace with a photo Rickey owns (current file carries a Getty Images watermark) -->
+          <div class="reel-card"><img src="Assets/rickey-02-04.jpg" alt="Rickey Eugene Brown"></div>
+          <div class="reel-card"><video autoplay loop muted playsinline preload="metadata"><source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744663/Download_4.mp4" type="video/mp4"></video></div>
+        </div></div>
+        <div class="reel-col overflow-hidden"><div class="reel-track reel-down">
+          <div class="reel-card"><video autoplay loop muted playsinline preload="metadata"><source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744653/Download_3.mp4" type="video/mp4"></video></div>
+          <div class="reel-card"><video autoplay loop muted playsinline preload="metadata"><source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744681/Download_6.mp4" type="video/mp4"></video></div>
+          <div class="reel-card"><video autoplay loop muted playsinline preload="metadata"><source src="https://res.cloudinary.com/fje4fcoe/video/upload/v1792744654/Download_5.mp4" type="video/mp4"></video></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       6. WHO IT'S FOR
+       ======================================================== -->
+  <section class="bg-tape-black py-20 sm:py-28">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl tracking-tight text-white mb-2 text-center">Made for people who haven't started yet.</h2>
+      <p class="text-tape-muted text-sm sm:text-base mb-12 sm:mb-14 text-center">A few followers or none, no sales yet, no setup. That's where this starts.</p>
+      <!-- Each card: the buyer's comment, then Rickey's reply. The middle column sits lower on desktop, like a scrolling feed -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
+        <div class="cmt glass-dark transition hover:-translate-y-1">
+          <div class="flex gap-3"><span class="cmt-you"><svg class="ico w-[18px] h-[18px]" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><p class="text-xs font-semibold text-tape-muted">you</p><p class="font-semibold text-white leading-snug mt-0.5">I watch people sell on TikTok every day. Still don't get how they do it.</p></div></div>
+          <div class="flex gap-2.5 mt-4 pl-12"><span class="cmt-rk font-heading font-bold">R</span><div><p class="text-xs font-semibold text-white">rickeyeugenebrown <span class="text-tape-red">· Creator</span></p><p class="cmt-bubble">Say less. I'll show you exactly how.</p></div></div>
+        </div>
+        <div class="cmt glass-dark transition hover:-translate-y-1 lg:mt-8">
+          <div class="flex gap-3"><span class="cmt-you"><svg class="ico w-[18px] h-[18px]" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><p class="text-xs font-semibold text-tape-muted">you</p><p class="font-semibold text-white leading-snug mt-0.5">I've never posted my face. Not once.</p></div></div>
+          <div class="flex gap-2.5 mt-4 pl-12"><span class="cmt-rk font-heading font-bold">R</span><div><p class="text-xs font-semibold text-white">rickeyeugenebrown <span class="text-tape-red">· Creator</span></p><p class="cmt-bubble">Good. You start where nobody's watching, at your own pace.</p></div></div>
+        </div>
+        <div class="cmt glass-dark transition hover:-translate-y-1">
+          <div class="flex gap-3"><span class="cmt-you"><svg class="ico w-[18px] h-[18px]" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><p class="text-xs font-semibold text-tape-muted">you</p><p class="font-semibold text-white leading-snug mt-0.5">I posted one video… then deleted it.</p></div></div>
+          <div class="flex gap-2.5 mt-4 pl-12"><span class="cmt-rk font-heading font-bold">R</span><div><p class="text-xs font-semibold text-white">rickeyeugenebrown <span class="text-tape-red">· Creator</span></p><p class="cmt-bubble">Most people do. This time you'll have a reason to keep going.</p></div></div>
+        </div>
+        <div class="cmt glass-dark transition hover:-translate-y-1">
+          <div class="flex gap-3"><span class="cmt-you"><svg class="ico w-[18px] h-[18px]" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><p class="text-xs font-semibold text-tape-muted">you</p><p class="font-semibold text-white leading-snug mt-0.5">What if someone from work sees it?</p></div></div>
+          <div class="flex gap-2.5 mt-4 pl-12"><span class="cmt-rk font-heading font-bold">R</span><div><p class="text-xs font-semibold text-white">rickeyeugenebrown <span class="text-tape-red">· Creator</span></p><p class="cmt-bubble">There's a whole lesson on exactly that.</p></div></div>
+        </div>
+        <div class="cmt glass-dark transition hover:-translate-y-1 lg:mt-8">
+          <div class="flex gap-3"><span class="cmt-you"><svg class="ico w-[18px] h-[18px]" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><p class="text-xs font-semibold text-tape-muted">you</p><p class="font-semibold text-white leading-snug mt-0.5">I've got under 1,000 followers. Way under.</p></div></div>
+          <div class="flex gap-2.5 mt-4 pl-12"><span class="cmt-rk font-heading font-bold">R</span><div><p class="text-xs font-semibold text-white">rickeyeugenebrown <span class="text-tape-red">· Creator</span></p><p class="cmt-bubble">Perfect. You don't need a big audience to start.</p></div></div>
+        </div>
+        <div class="cmt glass-dark transition hover:-translate-y-1">
+          <div class="flex gap-3"><span class="cmt-you"><svg class="ico w-[18px] h-[18px]" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><p class="text-xs font-semibold text-tape-muted">you</p><p class="font-semibold text-white leading-snug mt-0.5">I have a job. I don't have time for this.</p></div></div>
+          <div class="flex gap-2.5 mt-4 pl-12"><span class="cmt-rk font-heading font-bold">R</span><div><p class="text-xs font-semibold text-white">rickeyeugenebrown <span class="text-tape-red">· Creator</span></p><p class="cmt-bubble">15 minutes a day. Before work or on your lunch break.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       7. BEFORE AND AFTER
+       ======================================================== -->
+  <section id="seven-days" class="py-20 sm:py-28">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl tracking-tight text-gray-950 text-center mb-12 sm:mb-14">Seven days from now.</h2>
+      <!-- Two phones showing the buyer's own TikTok profile: empty today, seven product videos on Day 7 -->
+      <div class="grid md:grid-cols-[1fr_auto_1fr] gap-10 md:gap-6 items-start">
+        <div>
+          <p class="font-heading font-bold text-2xl sm:text-3xl text-gray-400 mb-5 text-center">Today</p>
+          <div class="phone"><span class="phone-notch"></span><img src="Assets/profile-today.jpg" alt="A new TikTok profile with no videos posted and three drafts" class="w-full h-full object-cover" loading="lazy"></div>
+          <ul class="space-y-3 text-gray-600 mt-8 max-w-xs mx-auto">
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-gray-400 mt-0.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>A camera roll full of saved TikTok Shop videos</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-gray-400 mt-0.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Drafts you never posted</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-gray-400 mt-0.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Not sure how TikTok Shop actually pays</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-gray-400 mt-0.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>Waiting until you're "ready"</li>
+          </ul>
+        </div>
+        <div class="flex justify-center md:pt-80">
+          <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-tape-red text-white text-xs font-heading font-bold whitespace-nowrap">7 days <svg class="ico w-4 h-4 rotate-90 md:rotate-0" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+        <div>
+          <p class="font-heading font-bold text-2xl sm:text-3xl text-tape-red mb-5 text-center">Day 7</p>
+          <div class="phone"><span class="phone-notch"></span><img src="Assets/profile-day7.jpg" alt="A TikTok profile with seven product videos posted" class="w-full h-full object-cover" loading="lazy"></div>
+          <ul class="space-y-3 text-gray-950 font-medium mt-8 max-w-xs mx-auto">
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Seven product videos, filmed on your phone</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Your first ones posted</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>You know how a sale happens and when you get paid</li>
+            <li class="flex items-start gap-3"><svg class="ico w-[18px] h-[18px] text-tape-red mt-0.5" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>A plan for the road to 1,000 followers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews go here once the test group has finished (real names and words only) -->
+
+  <!-- ========================================================
+       8. FAQ
+       ======================================================== -->
+  <section id="faq" class="bg-white py-20 sm:py-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <p class="eyebrow text-gray-500 mb-2">FAQ</p>
+      <h2 class="font-heading font-bold text-3xl sm:text-4xl tracking-tight text-gray-950 mb-12 sm:mb-14">Questions, answered.</h2>
+      <div class="divide-y divide-gray-300 border-y border-gray-300">
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-gray-950">Will people I know see my videos?<span class="text-xl leading-none group-open:rotate-45 transition">+</span></summary>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed mt-3">Not unless you want them to. Your first three videos stay private: saved to drafts, or posted with "Only you" selected. By the time you post publicly, you've already done it three times.</p>
+        </details>
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-gray-950">Will I make money in the 7 days?<span class="text-xl leading-none group-open:rotate-45 transition">+</span></summary>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed mt-3">No, and we won't pretend you will. TikTok Shop opens to creators at 1,000 followers. The First Seven gets you started: you'll know how it works, have seven videos made, and have a plan for getting to 1,000.</p>
+        </details>
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-gray-950">What if I have 0 followers right now?<span class="text-xl leading-none group-open:rotate-45 transition">+</span></summary>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed mt-3">That's exactly who it's for. You don't need an audience to start.</p>
+        </details>
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-gray-950">Do I need a camera, lights or a mic?<span class="text-xl leading-none group-open:rotate-45 transition">+</span></summary>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed mt-3">No. Just the phone you already have and things already in your house. One lesson shows you the whole setup in about a minute.</p>
+        </details>
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-gray-950">How much time does each day take?<span class="text-xl leading-none group-open:rotate-45 transition">+</span></summary>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed mt-3">About 15 minutes: a 4-minute video from Rickey and an 11-minute task. Small enough to do before work or on your lunch break.</p>
+        </details>
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-gray-950">Is it only for the US?<span class="text-xl leading-none group-open:rotate-45 transition">+</span></summary>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed mt-3">Yes. TikTok Shop runs in a few countries, but this course is built for the US TikTok Shop, for people 18 or older in the US.</p>
+        </details>
+        <details class="group py-5">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none font-semibold text-gray-950">What happens after Day 7?<span class="text-xl leading-none group-open:rotate-45 transition">+</span></summary>
+          <p class="text-sm sm:text-base text-gray-600 leading-relaxed mt-3">You keep posting on your plan. If you want the next four weeks with Rickey and a small group, that's Shop Ready, and you'll hear about it. It's optional. The First Seven is complete on its own.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       9. FINAL CALL
+       ======================================================== -->
+  <!-- Black card like the buy box: headline and button on the left, the Day 7 profile on the right, hanging over the card's bottom edge -->
+  <section class="bg-white pt-20 sm:pt-28 pb-40 sm:pb-48">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="relative bg-tape-black rounded-3xl grid md:grid-cols-2 gap-10 items-center px-7 sm:px-14 pt-12 sm:pt-16">
+        <span class="absolute top-5 left-5 w-6 h-6 bracket-tl"></span>
+        <span class="absolute top-5 right-5 w-6 h-6 bracket-tr"></span>
+        <span class="absolute bottom-5 left-5 w-6 h-6 bracket-bl"></span>
+        <span class="absolute bottom-5 right-5 w-6 h-6 bracket-br"></span>
+
+        <div class="text-center md:text-left md:pb-16">
+          <img src="Assets/REC(white&Red).png" alt="REC" class="h-4 w-auto object-contain mb-6 mx-auto md:mx-0">
+          <h2 class="font-heading font-bold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.05] text-white mb-5">A week from now, you've posted.</h2>
+          <p class="text-tape-muted text-base sm:text-lg mb-8">$17 one-time. Day 1 lands the next morning.</p>
+          <button onclick="goToOffer()" class="px-10 py-4 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-base font-heading font-bold whitespace-nowrap transition">Get The First Seven · $17</button>
+        </div>
+
+        <div class="flex justify-center -mb-24 sm:-mb-28">
+          <div class="phone rotate-3 relative z-10" style="border-color: #2E2E40;"><span class="phone-notch" style="background: #2E2E40;"></span><img src="Assets/profile-day7.jpg" alt="A TikTok profile with seven product videos posted" class="w-full h-full object-cover" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Same footer as the landing page (index.html); quick links point back to its sections -->
+  <footer class="pt-20 sm:pt-28 pb-0 bg-tape-black text-white relative overflow-hidden -mt-px">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 mb-16 sm:mb-20">
+        <div class="lg:col-span-4 space-y-4">
+          <a href="index.html" class="inline-block group mb-1">
+            <img src="Assets/logo.png" alt="GAME TAPE" class="h-10 sm:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]">
+          </a>
+          <p class="text-xs sm:text-sm text-gray-400 font-normal leading-relaxed max-w-sm">
+            Where new creators learn to sell on TikTok Shop. 15 minutes a day, no professional camera needed, with Rickey Eugene Brown.
+          </p>
+        </div>
+
+        <div class="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 text-xs sm:text-sm">
+          <div class="space-y-3">
+            <h4 class="font-heading font-semibold text-xs uppercase text-gray-200">Quick Links</h4>
+            <ul class="space-y-2.5 text-gray-400">
+              <li><a href="index.html" class="hover:text-white transition">Home</a></li>
+              <li><a href="index.html#the-freeze" class="hover:text-white transition">How It Works</a></li>
+              <li><a href="index.html#rickey" class="hover:text-white transition">About Rickey</a></li>
+              <li><a href="index.html#vsl" class="hover:text-white transition">Watch Breakdown</a></li>
+              <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="space-y-3">
+            <h4 class="font-heading font-semibold text-xs uppercase text-gray-200">Programs</h4>
+            <ul class="space-y-2.5 text-gray-400">
+              <li><a href="#buy" class="hover:text-white transition">The First Seven</a></li>
+            </ul>
+          </div>
+          <div class="space-y-3">
+            <h4 class="font-heading font-semibold text-xs uppercase text-gray-200">Connect</h4>
+            <ul class="space-y-2.5 text-gray-400">
+              <li><a href="https://tiktok.com/@rickeyeugenebrown" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">TikTok</a></li>
+              <li><a href="https://instagram.com/rickeyeugenebrown" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Instagram</a></li>
+              <li><a href="mailto:support@gametape.com" class="hover:text-white transition">Email Support</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 pb-4 border-t border-tape-border flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+        <span>© 2026 GAME TAPE</span>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#" class="hover:text-white transition">Privacy Policy</a>
+          <span>·</span>
+          <a href="#" class="hover:text-white transition">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Giant wordmark, fading out at the bottom edge -->
+    <div class="w-full text-center overflow-hidden pointer-events-none select-none relative z-0 mt-8 sm:mt-12 -mb-2 sm:-mb-6 md:-mb-8 px-4 sm:px-6">
+      <div class="max-w-7xl mx-auto">
+        <img src="Assets/logos (3).png" alt="" class="w-full h-auto object-contain mx-auto opacity-85 [mask-image:linear-gradient(180deg,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.4)_75%,transparent_100%)] [-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.4)_75%,transparent_100%)] translate-y-2 sm:translate-y-4">
+      </div>
+    </div>
+  </footer>
+
+  <!-- Phone: buy bar pinned to the bottom -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-200 px-4 py-3 flex items-center justify-between gap-3">
+    <span class="text-sm"><span class="font-heading font-bold text-gray-950">The First Seven</span><span class="text-gray-500"> · $17</span></span>
+    <button onclick="goToOffer()" class="px-6 py-3 rounded-full bg-tape-red text-white text-sm font-heading font-bold">Get it</button>
+  </div>
+
+  <!-- ========================================================
+       CHECKOUT (moved from the landing page): $17 + $9 tick box
+       ======================================================== -->
+  <!-- Cart slides in from the right (AG1-style): pick what you want here, enter details on checkout.html -->
+  <div id="checkout-modal" class="fixed inset-0 z-50" aria-hidden="true">
+    <div class="co-backdrop absolute inset-0 bg-black/60" onclick="closeCheckoutModal()"></div>
+    <aside class="co-panel absolute top-0 right-0 h-full w-full sm:max-w-md bg-white flex flex-col" role="dialog" aria-label="Your cart">
+      <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between flex-shrink-0">
+        <h3 class="font-heading font-bold text-lg text-gray-950">Your cart (<span id="cart-count">1</span>)</h3>
+        <button onclick="closeCheckoutModal()" aria-label="Close" class="w-9 h-9 rounded-full hover:bg-gray-100 text-gray-950 flex items-center justify-center"><svg class="ico w-5 h-5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto">
+        <!-- The starter -->
+        <div class="px-5 py-5 flex gap-4 border-b border-gray-200">
+          <div class="w-24 h-24 rounded-xl bg-tape-black flex items-center justify-center p-2 flex-shrink-0"><img src="Assets/day1-slide.png" alt="" class="w-full h-auto rounded"></div>
+          <div class="flex-1">
+            <p class="font-heading font-bold text-gray-950">The First Seven</p>
+            <p class="text-sm text-gray-500 mt-0.5">7 daily video lessons from Rickey</p>
+            <p class="font-semibold text-gray-950 mt-3">$17</p>
+          </div>
+        </div>
+
+        <!-- 100 Product Hooks: shown as a cart line once added, as an offer card before -->
+        <div id="cart-hooks-line" class="hidden px-5 py-5 flex gap-4 border-b border-gray-200">
+          <div class="w-24 h-24 rounded-xl bg-[#F4F4F1] flex items-center justify-center p-2 flex-shrink-0"><img src="Assets/hooks-cover.png" alt="" class="h-full w-auto rounded"></div>
+          <div class="flex-1">
+            <p class="font-heading font-bold text-gray-950">100 Product Hooks</p>
+            <p class="text-sm text-gray-500 mt-0.5">Fill-in-the-blank opening lines</p>
+            <div class="flex items-center justify-between mt-3">
+              <p class="font-semibold text-gray-950">$9</p>
+              <button onclick="setHooks(false)" aria-label="Remove 100 Product Hooks" class="w-8 h-8 rounded-full border border-gray-200 hover:border-gray-400 flex items-center justify-center text-gray-700"><svg class="ico w-4 h-4" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+            </div>
+          </div>
+        </div>
+
+        <div id="cart-hooks-offer" class="px-5 py-5">
+          <p class="font-semibold text-sm text-gray-950 mb-3">Add to your order</p>
+          <div class="border border-gray-200 rounded-2xl p-4 flex gap-4">
+            <img src="Assets/hooks-cover.png" alt="" class="w-14 h-auto self-start border border-gray-200 rounded flex-shrink-0">
+            <div class="flex-1">
+              <p class="font-heading font-bold text-gray-950">100 Product Hooks · $9</p>
+              <p class="text-sm text-gray-600 leading-relaxed mt-1">Never stare at your phone wondering how to start. 100 fill-in-the-blank opening lines across 10 kinds of product.</p>
+              <button onclick="setHooks(true)" class="mt-3 px-5 py-2 rounded-full bg-tape-black hover:bg-black text-white text-sm font-semibold transition">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-200 px-5 pt-4 pb-5 flex-shrink-0">
+        <div class="flex justify-between text-sm text-gray-500 mb-1"><span>One-time payment</span><span>No subscription</span></div>
+        <div class="flex justify-between items-baseline mb-4"><span class="font-semibold text-gray-950">Subtotal</span><span class="font-heading font-bold text-2xl text-gray-950" id="checkout-total-display">$17.00</span></div>
+        <button onclick="proceedToCheckout()" class="w-full py-4 rounded-full bg-tape-red hover:bg-tape-redhover text-white text-base font-heading font-bold transition">Proceed to checkout</button>
+      </div>
+    </aside>
+  </div>
+
+  <script src="funnel.js"></script>
+  <script>
+    function openCheckoutModal() {
+      const panel = document.getElementById('checkout-modal');
+      panel.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCheckoutModal() {
+      const panel = document.getElementById('checkout-modal');
+      panel.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Cart: the starter is always in; 100 Product Hooks moves between the offer card and a cart line
+    let cartHooks = false;
+    function setHooks(on) {
+      cartHooks = on;
+      document.getElementById('cart-hooks-line').classList.toggle('hidden', !on);
+      document.getElementById('cart-hooks-offer').classList.toggle('hidden', on);
+      document.getElementById('cart-count').innerText = on ? '2' : '1';
+      document.getElementById('checkout-total-display').innerText = on ? '$26.00' : '$17.00';
+    }
+
+    // Prototype: start a fresh order with the cart's contents, then enter details on the checkout page
+    function proceedToCheckout() {
+      try { localStorage.removeItem(ORDER_KEY); } catch (err) {}
+      goTo('checkout.html', { hooks: cartHooks });
+    }
+
+    // "Edit order" on the checkout page comes back to offer-first-seven.html#cart with the cart open as it was
+    if (location.hash === '#cart') {
+      setHooks(!!readOrder().hooks);
+      openCheckoutModal();
+    }
+
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCheckoutModal(); });
+
+    // Repeat each reel's cards once so the scrolling loop is seamless
+    document.querySelectorAll('.reel-track').forEach(track => {
+      Array.from(track.children).forEach(card => {
+        const copy = card.cloneNode(true);
+        copy.setAttribute('aria-hidden', 'true');
+        track.appendChild(copy);
+      });
+      track.querySelectorAll('video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
+    });
+
+    // Every "Get The First Seven" button scrolls to the buy card's own button (centred on screen); only that button opens checkout
+    function goToOffer() {
+      document.getElementById('offer-button').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Mobile menu: open/close, and close after a link is tapped (same as the landing page)
+    function toggleMobileMenu(force) {
+      const menu = document.getElementById('mobile-menu');
+      const open = typeof force === 'boolean' ? force : menu.classList.contains('hidden');
+      menu.classList.toggle('hidden', !open);
+      document.getElementById('mobile-menu-icon-open').classList.toggle('hidden', open);
+      document.getElementById('mobile-menu-icon-close').classList.toggle('hidden', !open);
+      const toggle = document.getElementById('mobile-menu-toggle');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => toggleMobileMenu(false));
+    });
+  </script>
+</body>
+</html>
